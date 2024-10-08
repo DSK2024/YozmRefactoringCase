@@ -1,6 +1,4 @@
-﻿using MQTTnet.Client;
-using MQTTnet;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,7 +10,6 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MQTTnet.Server;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolTip;
 
 namespace WinformApp1
@@ -65,7 +62,7 @@ namespace WinformApp1
         private void btnInit_Click(object sender, EventArgs e)
         {
             txtBarcodeData.Text = txtPart.Text = string.Empty;
-            lblStandWeight.Text = "7.0 g";
+            lblStandWeight.Text = "0.0 g";
             lblMeanWeight.Text = "0.0 g";
             lblOk.BackColor = Color.Black;
             lblNG.BackColor = Color.Gray;
@@ -91,7 +88,8 @@ namespace WinformApp1
 
                 if(barcode.Length > 10)
                 {
-                    var partNo = barcode.Split('#')[4];
+                    var data = barcode.Split('#');
+                    var partNo = data[4];
                     if (txtPart.InvokeRequired)
                     {
                         txtPart.Invoke((MethodInvoker)(() =>
@@ -102,6 +100,18 @@ namespace WinformApp1
                     else
                     {
                         txtPart.Text = partNo;
+                    }
+                    var weight = data[5];
+                    if (lblStandWeight.InvokeRequired)
+                    {
+                        lblStandWeight.Invoke((MethodInvoker)(() =>
+                        {
+                            lblStandWeight.Text = $"{weight} g";
+                        }));
+                    }
+                    else
+                    {
+                        lblStandWeight.Text = $"{weight} g";
                     }
                 }
             }

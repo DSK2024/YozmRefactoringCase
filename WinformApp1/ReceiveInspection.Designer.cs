@@ -152,7 +152,7 @@
             this.txtBarcodeData.ReadOnly = true;
             this.txtBarcodeData.Size = new System.Drawing.Size(455, 35);
             this.txtBarcodeData.TabIndex = 3;
-            this.txtBarcodeData.Text = "##HY#K3A08#AB12#0001";
+            this.txtBarcodeData.Text = "##HY#K3A08#AB12#7.5#0001";
             // 
             // label5
             // 
