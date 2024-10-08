@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35312.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YozmRefactoringCase", "YozmRefactoringCase\YozmRefactoringCase.csproj", "{47B567FC-AB91-4933-8EE4-05CF027D3359}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinformApp1", "WinformApp1\WinformApp1.csproj", "{53269245-F681-47F9-A0F4-CB57F568E338}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{47B567FC-AB91-4933-8EE4-05CF027D3359}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47B567FC-AB91-4933-8EE4-05CF027D3359}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47B567FC-AB91-4933-8EE4-05CF027D3359}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47B567FC-AB91-4933-8EE4-05CF027D3359}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53269245-F681-47F9-A0F4-CB57F568E338}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53269245-F681-47F9-A0F4-CB57F568E338}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53269245-F681-47F9-A0F4-CB57F568E338}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53269245-F681-47F9-A0F4-CB57F568E338}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FCE8E62A-C010-4A1E-8D42-7AC4C837A0F4}
+	EndGlobalSection
+EndGlobal
