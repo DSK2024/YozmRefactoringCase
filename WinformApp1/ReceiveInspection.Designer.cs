@@ -43,6 +43,7 @@
             this.lblNG = new System.Windows.Forms.Label();
             this.btnInit = new System.Windows.Forms.Button();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
+            this.serialPort2 = new System.IO.Ports.SerialPort(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -113,7 +114,7 @@
             this.lblMeanWeight.Name = "lblMeanWeight";
             this.lblMeanWeight.Size = new System.Drawing.Size(225, 41);
             this.lblMeanWeight.TabIndex = 8;
-            this.lblMeanWeight.Text = "0.0 KG";
+            this.lblMeanWeight.Text = "0.0 g";
             this.lblMeanWeight.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblStandWeight
@@ -235,6 +236,11 @@
             this.serialPort1.PortName = "COM3";
             this.serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort1_DataReceived);
             // 
+            // serialPort2
+            // 
+            this.serialPort2.PortName = "COM4";
+            this.serialPort2.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort2_DataReceived);
+            // 
             // ReceiveInspection
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -266,6 +272,7 @@
         private System.Windows.Forms.Label lblStandWeight;
         private System.Windows.Forms.Button btnInit;
         private System.IO.Ports.SerialPort serialPort1;
+        private System.IO.Ports.SerialPort serialPort2;
     }
 }
 

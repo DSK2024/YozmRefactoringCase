@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MQTTnet.Client;
+using MQTTnet;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,6 +12,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MQTTnet.Server;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolTip;
 
 namespace WinformApp1
 {
@@ -37,6 +41,18 @@ namespace WinformApp1
                 MessageBox.Show(ex.Message);
             }
 
+            try
+            {
+                serialPort2.Open();
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         // 입고검사 완료
@@ -49,7 +65,7 @@ namespace WinformApp1
         private void btnInit_Click(object sender, EventArgs e)
         {
             txtBarcodeData.Text = txtPart.Text = string.Empty;
-            lblStandWeight.Text = "0.0 g";
+            lblStandWeight.Text = "7.0 g";
             lblMeanWeight.Text = "0.0 g";
             lblOk.BackColor = Color.Black;
             lblNG.BackColor = Color.Gray;
@@ -88,6 +104,49 @@ namespace WinformApp1
                         txtPart.Text = partNo;
                     }
                 }
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void serialPort2_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+
+            try
+            {
+                var sWeight = serialPort2.ReadExisting();
+
+                if (lblMeanWeight.InvokeRequired)
+                {
+                    lblMeanWeight.Invoke((MethodInvoker)(() =>
+                    {
+                        lblMeanWeight.Text = $"{sWeight} g";
+                    }));
+                }
+                else
+                {
+                    lblMeanWeight.Text = $"{sWeight} g";
+                }
+
+                var weight = 0.0f;
+                var standard = 0.0f;
+                if (float.TryParse(sWeight, out weight))
+                {
+                    var sStandard = lblStandWeight.Text.Substring(0, lblStandWeight.Text.Length - 3);
+                    if(float.TryParse(sStandard, out standard))
+                    {
+                        if(standard + 0.5f > weight && standard - 0.5f < weight)
+                        {
+                            lblOk.BackColor = System.Drawing.Color.Blue;
+                            lblNG.BackColor = System.Drawing.Color.Gray;
+                            return;
+                        }
+                    }
+                }
+                lblOk.BackColor = System.Drawing.Color.Gray;
+                lblNG.BackColor = System.Drawing.Color.Red;
             }
             catch (IOException ex)
             {
