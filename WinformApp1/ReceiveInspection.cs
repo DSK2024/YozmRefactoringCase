@@ -73,7 +73,7 @@ namespace WinformApp1
             catch (Exception ex)
             {
                 //통신 실패시 처리로직
-                Console.WriteLine(ex.ToString());
+                MessageBox.Show(ex.ToString());
             }
         }
 
