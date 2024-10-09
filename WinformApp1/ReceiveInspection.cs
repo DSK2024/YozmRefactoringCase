@@ -114,6 +114,7 @@ namespace WinformApp1
             lblNG.BackColor = Color.Gray;
         }
 
+        // 바코드스캐너 수신 이벤트
         private void serialPort1_DataReceived(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
         {
             try
@@ -171,6 +172,7 @@ namespace WinformApp1
             }
         }
 
+        // 중량계 수신 이벤트
         private void serialPort2_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
 
@@ -214,6 +216,7 @@ namespace WinformApp1
             }
         }
 
+        // 하단 상태 정보 메세지
         private void StatusMessageShow(string message)
         {
             this.BeginInvoke((Action)(() => {
