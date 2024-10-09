@@ -95,7 +95,7 @@ namespace WinformApp1
                     new KeyValuePair<string, string>("weight", lblMeanWeight.Text),
                     new KeyValuePair<string, string>("ok_ng", lblOk.BackColor == Color.Blue ? "OK" : "NG")
                 });
-                var result = client.PostAsync("/api/Membership/exists", content);
+                var result = client.PostAsync("/api/receive/inspect", content);
             }
             catch (Exception ex)
             {
