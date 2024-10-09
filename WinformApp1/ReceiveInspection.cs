@@ -26,32 +26,59 @@ namespace WinformApp1
         private void ReceiveInspection_Load(object sender, EventArgs e)
         {
             btnInit_Click(this, null);
-            
-            try
-            {
-                serialPort1.Open();
-            }
-            catch(IOException ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
 
-            try
+            var t1 = new Thread(() => {
+                while(true)
+                {
+                    if (!serialPort1.IsOpen)
+                    {
+                        try
+                        {
+                            serialPort1.Open();
+                            if(serialPort1.IsOpen)
+                                StatusMessageShow("바코드스캐너 연결OK");
+                        }
+                        catch (IOException ex)
+                        {
+                            StatusMessageShow("바코드스캐너 연결에 문제가 있습니다. 케이블 연결 여부 혹은 스캐너 상태를 확인하세요.");
+                        }
+                        catch (Exception ex)
+                        {
+                            StatusMessageShow(ex.Message);
+                        }
+                    }
+                    Thread.Sleep(4500);
+                }
+            });
+
+            var t2 = new Thread(() =>
             {
-                serialPort2.Open();
-            }
-            catch (IOException ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+                while(true)
+                {
+                    if (!serialPort2.IsOpen)
+                    {
+                        try
+                        {
+                            serialPort2.Open();
+                            if (serialPort2.IsOpen)
+                                StatusMessageShow("중량계 연결OK");
+                        }
+                        catch (IOException ex)
+                        {
+                            StatusMessageShow("중량계 연결에 문제가 있습니다. 케이블 연결 여부 혹은 중량계 전원을 확인하세요.");
+                        }
+                        catch (Exception ex)
+                        {
+                            StatusMessageShow(ex.Message);
+                        }
+                    }
+                    Thread.Sleep(5500);
+                }
+            });
+
+            t1.IsBackground = t2.IsBackground = true;
+            t1.Start();
+            t2.Start();
         }
 
         // 입고검사 완료
@@ -73,7 +100,7 @@ namespace WinformApp1
             catch (Exception ex)
             {
                 //통신 실패시 처리로직
-                MessageBox.Show(ex.ToString());
+                StatusMessageShow(ex.Message);
             }
         }
 
@@ -135,12 +162,12 @@ namespace WinformApp1
                 }
                 else
                 {
-                    MessageBox.Show("형식에 맞지 않은 바코드입니다");
+                    StatusMessageShow("형식에 맞지 않은 바코드입니다");
                 }
             }
             catch (IOException ex)
             {
-                MessageBox.Show(ex.Message);
+                StatusMessageShow(ex.Message);
             }
         }
 
@@ -183,8 +210,15 @@ namespace WinformApp1
             }
             catch (IOException ex)
             {
-                MessageBox.Show(ex.Message);
+                StatusMessageShow(ex.Message);
             }
+        }
+
+        private void StatusMessageShow(string message)
+        {
+            this.BeginInvoke((Action)(() => {
+                tslStatus.Text = DateTime.Now.ToString("HH:mm:ss") + ":" + message;
+            }));
         }
     }
 }

@@ -38,14 +38,17 @@
             this.label1 = new System.Windows.Forms.Label();
             this.txtBarcodeData = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.btnInspect = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.lblOk = new System.Windows.Forms.Label();
             this.lblNG = new System.Windows.Forms.Label();
-            this.btnInit = new System.Windows.Forms.Button();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.serialPort2 = new System.IO.Ports.SerialPort(this.components);
+            this.btnInit = new System.Windows.Forms.Button();
+            this.btnInspect = new System.Windows.Forms.Button();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.tslStatus = new System.Windows.Forms.ToolStripLabel();
             this.tableLayoutPanel1.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -66,17 +69,19 @@
             this.tableLayoutPanel1.Controls.Add(this.lblOk, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.lblNG, 2, 3);
             this.tableLayoutPanel1.Controls.Add(this.btnInit, 2, 4);
+            this.tableLayoutPanel1.Controls.Add(this.toolStrip1, 0, 5);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Font = new System.Drawing.Font("돋움", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 5;
+            this.tableLayoutPanel1.RowCount = 6;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(651, 227);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(651, 245);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // txtPart
@@ -167,19 +172,6 @@
             this.label5.Text = "표준|측정";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // btnInspect
-            // 
-            this.tableLayoutPanel1.SetColumnSpan(this.btnInspect, 2);
-            this.btnInspect.Dock = System.Windows.Forms.DockStyle.Left;
-            this.btnInspect.Font = new System.Drawing.Font("돋움", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btnInspect.Location = new System.Drawing.Point(3, 167);
-            this.btnInspect.Name = "btnInspect";
-            this.btnInspect.Size = new System.Drawing.Size(414, 57);
-            this.btnInspect.TabIndex = 0;
-            this.btnInspect.Text = "검사완료";
-            this.btnInspect.UseVisualStyleBackColor = true;
-            this.btnInspect.Click += new System.EventHandler(this.btnInspect_Click);
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -220,18 +212,6 @@
             this.lblNG.Text = "NG";
             this.lblNG.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // btnInit
-            // 
-            this.btnInit.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btnInit.Font = new System.Drawing.Font("돋움", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btnInit.Location = new System.Drawing.Point(427, 167);
-            this.btnInit.Name = "btnInit";
-            this.btnInit.Size = new System.Drawing.Size(221, 57);
-            this.btnInit.TabIndex = 11;
-            this.btnInit.Text = "초기화";
-            this.btnInit.UseVisualStyleBackColor = true;
-            this.btnInit.Click += new System.EventHandler(this.btnInit_Click);
-            // 
             // serialPort1
             // 
             this.serialPort1.PortName = "COM3";
@@ -242,11 +222,54 @@
             this.serialPort2.PortName = "COM4";
             this.serialPort2.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort2_DataReceived);
             // 
+            // btnInit
+            // 
+            this.btnInit.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btnInit.Font = new System.Drawing.Font("돋움", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btnInit.Location = new System.Drawing.Point(427, 167);
+            this.btnInit.Name = "btnInit";
+            this.btnInit.Size = new System.Drawing.Size(221, 54);
+            this.btnInit.TabIndex = 11;
+            this.btnInit.Text = "초기화";
+            this.btnInit.UseVisualStyleBackColor = true;
+            this.btnInit.Click += new System.EventHandler(this.btnInit_Click);
+            // 
+            // btnInspect
+            // 
+            this.tableLayoutPanel1.SetColumnSpan(this.btnInspect, 2);
+            this.btnInspect.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnInspect.Font = new System.Drawing.Font("돋움", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btnInspect.Location = new System.Drawing.Point(3, 167);
+            this.btnInspect.Name = "btnInspect";
+            this.btnInspect.Size = new System.Drawing.Size(414, 54);
+            this.btnInspect.TabIndex = 0;
+            this.btnInspect.Text = "검사완료";
+            this.btnInspect.UseVisualStyleBackColor = true;
+            this.btnInspect.Click += new System.EventHandler(this.btnInspect_Click);
+            // 
+            // toolStrip1
+            // 
+            this.tableLayoutPanel1.SetColumnSpan(this.toolStrip1, 3);
+            this.toolStrip1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tslStatus});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 224);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(651, 21);
+            this.toolStrip1.TabIndex = 12;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // tslStatus
+            // 
+            this.tslStatus.Name = "tslStatus";
+            this.tslStatus.Size = new System.Drawing.Size(52, 18);
+            this.tslStatus.Text = "연결OK";
+            // 
             // ReceiveInspection
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(651, 227);
+            this.ClientSize = new System.Drawing.Size(651, 245);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ReceiveInspection";
@@ -254,6 +277,8 @@
             this.Load += new System.EventHandler(this.ReceiveInspection_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -261,7 +286,6 @@
         #endregion
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Button btnInspect;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtBarcodeData;
@@ -272,9 +296,12 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label lblMeanWeight;
         private System.Windows.Forms.Label lblStandWeight;
-        private System.Windows.Forms.Button btnInit;
         private System.IO.Ports.SerialPort serialPort1;
         private System.IO.Ports.SerialPort serialPort2;
+        private System.Windows.Forms.Button btnInspect;
+        private System.Windows.Forms.Button btnInit;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripLabel tslStatus;
     }
 }
 
