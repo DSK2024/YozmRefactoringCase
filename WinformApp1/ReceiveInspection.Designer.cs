@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReceiveInspection));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.txtPart = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -247,6 +248,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(651, 227);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ReceiveInspection";
             this.Text = "입고검사";
             this.Load += new System.EventHandler(this.ReceiveInspection_Load);

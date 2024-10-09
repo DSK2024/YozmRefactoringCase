@@ -105,9 +105,9 @@ namespace WinformApp1
                     txtBarcodeData.Text = barcode;
                 }
 
-                if(barcode.Length > 10)
+                var data = barcode.Split('#');
+                if (data.Length == 7)
                 {
-                    var data = barcode.Split('#');
                     var partNo = data[4];
                     if (txtPart.InvokeRequired)
                     {
@@ -132,6 +132,10 @@ namespace WinformApp1
                     {
                         lblStandWeight.Text = $"{weight} g";
                     }
+                }
+                else
+                {
+                    MessageBox.Show("형식에 맞지 않은 바코드입니다");
                 }
             }
             catch (IOException ex)
