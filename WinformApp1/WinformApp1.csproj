@@ -46,6 +46,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\BarcodeScanner.cs" />
+    <Compile Include="Models\BarcodeScannerStatus.cs" />
+    <Compile Include="Models\IXerialPort.cs" />
+    <Compile Include="Models\XerialPort.cs" />
     <Compile Include="ReceiveInspection.cs">
       <SubType>Form</SubType>
     </Compile>

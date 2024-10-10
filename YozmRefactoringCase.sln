@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YozmRefactoringCase", "Yozm
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinformApp1", "WinformApp1\WinformApp1.csproj", "{53269245-F681-47F9-A0F4-CB57F568E338}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestRefactoring", "TestRefactoring\TestRefactoring.csproj", "{2DCE7138-5896-462B-AA4B-77295A7A74CE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{53269245-F681-47F9-A0F4-CB57F568E338}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53269245-F681-47F9-A0F4-CB57F568E338}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53269245-F681-47F9-A0F4-CB57F568E338}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DCE7138-5896-462B-AA4B-77295A7A74CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DCE7138-5896-462B-AA4B-77295A7A74CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DCE7138-5896-462B-AA4B-77295A7A74CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DCE7138-5896-462B-AA4B-77295A7A74CE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
