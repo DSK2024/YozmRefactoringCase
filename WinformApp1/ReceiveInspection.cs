@@ -87,7 +87,7 @@ namespace WinformApp1
             try
             {
                 var client = new HttpClient();
-                client.BaseAddress = new Uri("http://localhost:8719");
+                client.BaseAddress = new Uri("https://69af0b64-3377-43c3-a562-60729cebad2a.mock.pstmn.io");
                 var content = new FormUrlEncodedContent(new[]
                 {
                     new KeyValuePair<string, string>("barcode", txtBarcodeData.Text),
@@ -96,6 +96,7 @@ namespace WinformApp1
                     new KeyValuePair<string, string>("ok_ng", lblOk.BackColor == Color.Blue ? "OK" : "NG")
                 });
                 var result = client.PostAsync("/api/receive/inspect", content);
+                btnInit_Click(this, null);
             }
             catch (Exception ex)
             {
@@ -178,33 +179,32 @@ namespace WinformApp1
 
             try
             {
-                var sWeight = serialPort2.ReadExisting();
+                var bytes = serialPort2.BytesToRead;
+                var buffer = new byte[bytes];
+                serialPort2.Read(buffer, 0, bytes);
+                var weight = BitConverter.ToSingle(buffer, 0);
 
                 if (lblMeanWeight.InvokeRequired)
                 {
                     lblMeanWeight.Invoke((MethodInvoker)(() =>
                     {
-                        lblMeanWeight.Text = $"{sWeight} g";
+                        lblMeanWeight.Text = $"{weight} g";
                     }));
                 }
                 else
                 {
-                    lblMeanWeight.Text = $"{sWeight} g";
+                    lblMeanWeight.Text = $"{weight} g";
                 }
 
-                var weight = 0.0f;
+                var sStandard = lblStandWeight.Text.Substring(0, lblStandWeight.Text.Length - 3);
                 var standard = 0.0f;
-                if (float.TryParse(sWeight, out weight))
+                if (float.TryParse(sStandard, out standard))
                 {
-                    var sStandard = lblStandWeight.Text.Substring(0, lblStandWeight.Text.Length - 3);
-                    if(float.TryParse(sStandard, out standard))
+                    if (standard + 0.5f > weight && standard - 0.5f < weight)
                     {
-                        if(standard + 0.5f > weight && standard - 0.5f < weight)
-                        {
-                            lblOk.BackColor = System.Drawing.Color.Blue;
-                            lblNG.BackColor = System.Drawing.Color.Gray;
-                            return;
-                        }
+                        lblOk.BackColor = System.Drawing.Color.Blue;
+                        lblNG.BackColor = System.Drawing.Color.Gray;
+                        return;
                     }
                 }
                 lblOk.BackColor = System.Drawing.Color.Gray;
