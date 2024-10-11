@@ -33,7 +33,7 @@ namespace WinformApp1.Models
             {
                 var bytes = _serialPort.BytesToRead;
                 var buffer = new byte[bytes];
-                _serialPort.Read(buffer, 0, bytes);
+                Read(buffer, 0, bytes);
                 _Readcallback(buffer);
             }
             catch (IOException ex)
