@@ -26,16 +26,17 @@ namespace WinformApp1
         private void ReceiveInspection_Load(object sender, EventArgs e)
         {
             btnInit_Click(this, null);
-
-            var t1 = new Thread(() => {
-                while(true)
+            
+            var t1 = new Thread(() =>
+            {
+                while (true)
                 {
                     if (!serialPort1.IsOpen)
                     {
                         try
                         {
                             serialPort1.Open();
-                            if(serialPort1.IsOpen)
+                            if (serialPort1.IsOpen)
                                 StatusMessageShow("바코드스캐너 연결OK");
                         }
                         catch (IOException ex)
