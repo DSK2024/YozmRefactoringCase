@@ -13,7 +13,7 @@ namespace WinformApp1.Models
     {
         IXerialPort _port;
         bool _isStart;
-        Thread _thread;
+        Thread _tConnCheck;
         public BarcodeScannerStatus Status
         {
             get {
@@ -33,30 +33,33 @@ namespace WinformApp1.Models
 
         public void ConnectStart()
         {
+            _tConnCheck = new Thread(() =>
+            {
+                while (true)
+                {
+                    if (!_port.IsOpen)
+                    {
+                        try
+                        {
+                            _port.Open();
+                            if (_port.IsOpen)
+                                Program.statusMessageShow("바코드스캐너 연결OK");
+                        }
+                        catch (IOException ex)
+                        {
+                            Program.statusMessageShow("바코드스캐너 연결에 문제가 있습니다. 케이블 연결 여부 혹은 스캐너 상태를 확인하세요.");
+                        }
+                        catch (Exception ex)
+                        {
+                            Program.statusMessageShow(ex.Message);
+                        }
+                    }
+                    Thread.Sleep(4500);
+                }
+            });
+            _tConnCheck.IsBackground = true;
+            _tConnCheck.Start();
             _isStart = true;
-            //_thread = new Thread(() => {
-            //    while (true)
-            //    {
-            //        if (!serialPort1.IsOpen)
-            //        {
-            //            try
-            //            {
-            //                serialPort1.Open();
-            //                if (serialPort1.IsOpen)
-            //                    StatusMessageShow("바코드스캐너 연결OK");
-            //            }
-            //            catch (IOException ex)
-            //            {
-            //                StatusMessageShow("바코드스캐너 연결에 문제가 있습니다. 케이블 연결 여부 혹은 스캐너 상태를 확인하세요.");
-            //            }
-            //            catch (Exception ex)
-            //            {
-            //                StatusMessageShow(ex.Message);
-            //            }
-            //        }
-            //        Thread.Sleep(4500);
-            //    }
-            //});
         }
     }
 }

@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WinformApp1.Models;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolTip;
 
 namespace WinformApp1
@@ -26,31 +27,10 @@ namespace WinformApp1
         private void ReceiveInspection_Load(object sender, EventArgs e)
         {
             btnInit_Click(this, null);
-            
-            var t1 = new Thread(() =>
-            {
-                while (true)
-                {
-                    if (!serialPort1.IsOpen)
-                    {
-                        try
-                        {
-                            serialPort1.Open();
-                            if (serialPort1.IsOpen)
-                                StatusMessageShow("바코드스캐너 연결OK");
-                        }
-                        catch (IOException ex)
-                        {
-                            StatusMessageShow("바코드스캐너 연결에 문제가 있습니다. 케이블 연결 여부 혹은 스캐너 상태를 확인하세요.");
-                        }
-                        catch (Exception ex)
-                        {
-                            StatusMessageShow(ex.Message);
-                        }
-                    }
-                    Thread.Sleep(4500);
-                }
-            });
+
+            var port = new XerialPort(serialPort1);
+            var b = new BarcodeScanner(port);
+            b.ConnectStart();
 
             var t2 = new Thread(() =>
             {
@@ -77,8 +57,7 @@ namespace WinformApp1
                 }
             });
 
-            t1.IsBackground = t2.IsBackground = true;
-            t1.Start();
+            t2.IsBackground = true;
             t2.Start();
         }
 
@@ -218,7 +197,7 @@ namespace WinformApp1
         }
 
         // 하단 상태 정보 메세지
-        private void StatusMessageShow(string message)
+        public void StatusMessageShow(string message)
         {
             this.BeginInvoke((Action)(() => {
                 tslStatus.Text = DateTime.Now.ToString("HH:mm:ss") + ":" + message;
