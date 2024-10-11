@@ -22,7 +22,7 @@ namespace UnitTestWinformApp
 
         
         [TestMethod]
-        public void 스캐너_연결시작OK()
+        public void 스캐너_가동시작OK()
         {
             var xerialMock = new Mock<IXerialPort>();
             xerialMock.Setup(x => x.Open());
