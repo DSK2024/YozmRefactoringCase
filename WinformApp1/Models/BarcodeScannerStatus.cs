@@ -11,8 +11,17 @@ namespace WinformApp1.Models
     /// </summary>
     public enum BarcodeScannerStatus
     {
+        /// <summary>
+        /// 포트 연결없음
+        /// </summary>
         Disopen,
+        /// <summary>
+        /// 포트 연결되엇음
+        /// </summary>
         Opened,
-        Start,
+        /// <summary>
+        /// 스캐너 시작되었음.
+        /// </summary>
+        Started,
     }
 }

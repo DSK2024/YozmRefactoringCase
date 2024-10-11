@@ -20,7 +20,7 @@ namespace UnitTestWinformApp
             Assert.AreEqual(scanner.Status, BarcodeScannerStatus.Opened);
         }
 
-
+        
         [TestMethod]
         public void 스캐너_연결시작OK()
         {
@@ -31,7 +31,7 @@ namespace UnitTestWinformApp
 
             var scanner = new BarcodeScanner(port);
             scanner.ConnectStart();
-            Assert.AreEqual(scanner.Status, BarcodeScannerStatus.Start);
+            Assert.AreEqual(scanner.Status, BarcodeScannerStatus.Started);
         }
     }
 }
