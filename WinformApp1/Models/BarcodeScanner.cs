@@ -20,7 +20,7 @@ namespace WinformApp1.Models
                 if (_port.IsOpen && _isStart == false)
                     return BarcodeScannerStatus.Opened;
                 else if (_port.IsOpen && _isStart == true)
-                    return BarcodeScannerStatus.Start;
+                    return BarcodeScannerStatus.Started;
                 else
                     return BarcodeScannerStatus.Disopen;
             }
