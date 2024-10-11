@@ -38,15 +38,14 @@
             this.label1 = new System.Windows.Forms.Label();
             this.txtBarcodeData = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.btnInspect = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.lblOk = new System.Windows.Forms.Label();
             this.lblNG = new System.Windows.Forms.Label();
-            this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
-            this.serialPort2 = new System.IO.Ports.SerialPort(this.components);
             this.btnInit = new System.Windows.Forms.Button();
-            this.btnInspect = new System.Windows.Forms.Button();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.tslStatus = new System.Windows.Forms.ToolStripLabel();
+            this.serialPort2 = new System.IO.Ports.SerialPort(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -172,6 +171,19 @@
             this.label5.Text = "표준|측정";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // btnInspect
+            // 
+            this.tableLayoutPanel1.SetColumnSpan(this.btnInspect, 2);
+            this.btnInspect.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnInspect.Font = new System.Drawing.Font("돋움", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btnInspect.Location = new System.Drawing.Point(3, 167);
+            this.btnInspect.Name = "btnInspect";
+            this.btnInspect.Size = new System.Drawing.Size(414, 54);
+            this.btnInspect.TabIndex = 0;
+            this.btnInspect.Text = "검사완료";
+            this.btnInspect.UseVisualStyleBackColor = true;
+            this.btnInspect.Click += new System.EventHandler(this.btnInspect_Click);
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -212,16 +224,6 @@
             this.lblNG.Text = "NG";
             this.lblNG.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // serialPort1
-            // 
-            this.serialPort1.PortName = "COM3";
-            this.serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort1_DataReceived);
-            // 
-            // serialPort2
-            // 
-            this.serialPort2.PortName = "COM4";
-            this.serialPort2.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort2_DataReceived);
-            // 
             // btnInit
             // 
             this.btnInit.Dock = System.Windows.Forms.DockStyle.Right;
@@ -233,19 +235,6 @@
             this.btnInit.Text = "초기화";
             this.btnInit.UseVisualStyleBackColor = true;
             this.btnInit.Click += new System.EventHandler(this.btnInit_Click);
-            // 
-            // btnInspect
-            // 
-            this.tableLayoutPanel1.SetColumnSpan(this.btnInspect, 2);
-            this.btnInspect.Dock = System.Windows.Forms.DockStyle.Left;
-            this.btnInspect.Font = new System.Drawing.Font("돋움", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btnInspect.Location = new System.Drawing.Point(3, 167);
-            this.btnInspect.Name = "btnInspect";
-            this.btnInspect.Size = new System.Drawing.Size(414, 54);
-            this.btnInspect.TabIndex = 0;
-            this.btnInspect.Text = "검사완료";
-            this.btnInspect.UseVisualStyleBackColor = true;
-            this.btnInspect.Click += new System.EventHandler(this.btnInspect_Click);
             // 
             // toolStrip1
             // 
@@ -264,6 +253,11 @@
             this.tslStatus.Name = "tslStatus";
             this.tslStatus.Size = new System.Drawing.Size(52, 18);
             this.tslStatus.Text = "연결OK";
+            // 
+            // serialPort2
+            // 
+            this.serialPort2.PortName = "COM4";
+            this.serialPort2.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort2_DataReceived);
             // 
             // ReceiveInspection
             // 
@@ -296,7 +290,6 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label lblMeanWeight;
         private System.Windows.Forms.Label lblStandWeight;
-        private System.IO.Ports.SerialPort serialPort1;
         private System.IO.Ports.SerialPort serialPort2;
         private System.Windows.Forms.Button btnInspect;
         private System.Windows.Forms.Button btnInit;

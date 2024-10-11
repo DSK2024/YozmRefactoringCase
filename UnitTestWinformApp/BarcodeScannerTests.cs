@@ -33,5 +33,15 @@ namespace UnitTestWinformApp
             scanner.ConnectStart();
             Assert.AreEqual(scanner.Status, BarcodeScannerStatus.Started);
         }
+
+        [TestMethod]
+        public void 시리얼포트_연결OK()
+        {
+            var xerialMock = new Mock<IXerialPort>();
+            xerialMock.Setup(x => x.Open());
+            xerialMock.Setup(x => x.IsOpen).Returns(true);
+            var port = xerialMock.Object;
+            Assert.AreEqual(port.IsOpen, true);
+        }
     }
 }

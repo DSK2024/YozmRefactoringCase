@@ -19,6 +19,7 @@ namespace WinformApp1
 {
     public partial class ReceiveInspection : Form
     {
+        BarcodeScanner _scanner;
         public ReceiveInspection()
         {
             InitializeComponent();
@@ -28,9 +29,66 @@ namespace WinformApp1
         {
             btnInit_Click(this, null);
 
-            var port = new XerialPort(serialPort1);
-            var b = new BarcodeScanner(port);
-            b.ConnectStart();
+            Action<byte[]> barcodeReadCallback = (buffer) =>
+            {
+                string barcode = UTF32Encoding.UTF8.GetString(buffer);
+                if (txtBarcodeData.InvokeRequired)
+                {
+                    txtBarcodeData.Invoke((MethodInvoker)(() =>
+                    {
+                        txtBarcodeData.Text = barcode;
+                    }));
+                }
+                else
+                {
+                    txtBarcodeData.Text = barcode;
+                }
+
+                var data = barcode.Split('#');
+                if (data.Length == 7)
+                {
+                    var partNo = data[4];
+                    if (txtPart.InvokeRequired)
+                    {
+                        txtPart.Invoke((MethodInvoker)(() =>
+                        {
+                            txtPart.Text = partNo;
+                        }));
+                    }
+                    else
+                    {
+                        txtPart.Text = partNo;
+                    }
+                    var weight = data[5];
+                    if (lblStandWeight.InvokeRequired)
+                    {
+                        lblStandWeight.Invoke((MethodInvoker)(() =>
+                        {
+                            lblStandWeight.Text = $"{weight} g";
+                        }));
+                    }
+                    else
+                    {
+                        lblStandWeight.Text = $"{weight} g";
+                    }
+                }
+                else
+                {
+                    StatusMessageShow("형식에 맞지 않은 바코드입니다");
+                }
+            };
+
+            var scannerPort = new SerialPort()
+            {
+                PortName = "COM3",
+                BaudRate = 9600,
+                DataBits = 8,
+                Parity = Parity.None,
+                StopBits = StopBits.One
+            };
+            var port = new XerialPort(scannerPort, barcodeReadCallback);
+            _scanner = new BarcodeScanner(port);
+            _scanner.ConnectStart();
 
             var t2 = new Thread(() =>
             {
@@ -93,64 +151,6 @@ namespace WinformApp1
             lblMeanWeight.Text = "0.0 g";
             lblOk.BackColor = Color.Black;
             lblNG.BackColor = Color.Gray;
-        }
-
-        // 바코드스캐너 수신 이벤트
-        private void serialPort1_DataReceived(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
-        {
-            try
-            {
-                var barcode = serialPort1.ReadExisting();
-
-                if (txtBarcodeData.InvokeRequired)
-                {
-                    txtBarcodeData.Invoke((MethodInvoker)(() =>
-                    {
-                        txtBarcodeData.Text = barcode;
-                    }));
-                }
-                else
-                {
-                    txtBarcodeData.Text = barcode;
-                }
-
-                var data = barcode.Split('#');
-                if (data.Length == 7)
-                {
-                    var partNo = data[4];
-                    if (txtPart.InvokeRequired)
-                    {
-                        txtPart.Invoke((MethodInvoker)(() =>
-                        {
-                            txtPart.Text = partNo;
-                        }));
-                    }
-                    else
-                    {
-                        txtPart.Text = partNo;
-                    }
-                    var weight = data[5];
-                    if (lblStandWeight.InvokeRequired)
-                    {
-                        lblStandWeight.Invoke((MethodInvoker)(() =>
-                        {
-                            lblStandWeight.Text = $"{weight} g";
-                        }));
-                    }
-                    else
-                    {
-                        lblStandWeight.Text = $"{weight} g";
-                    }
-                }
-                else
-                {
-                    StatusMessageShow("형식에 맞지 않은 바코드입니다");
-                }
-            }
-            catch (IOException ex)
-            {
-                StatusMessageShow(ex.Message);
-            }
         }
 
         // 중량계 수신 이벤트
