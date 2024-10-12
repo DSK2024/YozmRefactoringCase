@@ -135,45 +135,14 @@ namespace WinformApp1
             {
                 var barcode = serialPort1.ReadExisting();
 
-                if (txtBarcodeData.InvokeRequired)
-                {
-                    txtBarcodeData.Invoke((MethodInvoker)(() =>
-                    {
-                        txtBarcodeData.Text = barcode;
-                    }));
-                }
-                else
-                {
-                    txtBarcodeData.Text = barcode;
-                }
-
+                TextSetThreadSafe(txtBarcodeData, barcode);
                 var data = barcode.Split('#');
                 if (data.Length == 7)
                 {
                     var partNo = data[4];
-                    if (txtPart.InvokeRequired)
-                    {
-                        txtPart.Invoke((MethodInvoker)(() =>
-                        {
-                            txtPart.Text = partNo;
-                        }));
-                    }
-                    else
-                    {
-                        txtPart.Text = partNo;
-                    }
                     var weight = data[5];
-                    if (lblStandWeight.InvokeRequired)
-                    {
-                        lblStandWeight.Invoke((MethodInvoker)(() =>
-                        {
-                            lblStandWeight.Text = $"{weight} g";
-                        }));
-                    }
-                    else
-                    {
-                        lblStandWeight.Text = $"{weight} g";
-                    }
+                    TextSetThreadSafe(txtPart, partNo);
+                    TextSetThreadSafe(lblStandWeight, $"{weight} g");
                 }
                 else
                 {
