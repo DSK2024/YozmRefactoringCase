@@ -18,7 +18,7 @@ namespace WinformApp1
 {
     public partial class ReceiveInspection : Form
     {
-        Action<Control, string> TextSetAsync;
+        Action<Control, string> TextSetThreadSafe;
         public ReceiveInspection()
         {
             InitializeComponent();
@@ -28,7 +28,7 @@ namespace WinformApp1
         {
             btnInit_Click(this, null);
 
-            TextSetAsync = (control, text) =>
+            TextSetThreadSafe = (control, text) =>
             {
                 if (control.InvokeRequired)
                 {
