@@ -13,12 +13,21 @@ namespace WinformApp1.Models
         const int _DATEFORM_START_STEP = 3;
         const int _PART_NO_START_STEP = 4;
         const int _STD_WEIGHT_START_STEP = 5;
-        const char _BARCODE_STEP_DELIMITER = '#';
+        const char _BARCODE_STEP_DELIMITER = '#';//구분자
+        const int _ELEMENT_AVAIL_COUNT = 7;//요소의 수
         readonly string _barcodeData;
         public BarcodeInfo(string barcodeData)
         {
             _barcodeData = barcodeData;
         }
+        public BarcodeInfo(byte[] buffer)
+        {
+            _barcodeData = UTF32Encoding.UTF8.GetString(buffer);
+        }
+        /// <summary>
+        /// 바코드데이터 문자값
+        /// </summary>
+        public string DataText => _barcodeData;
         string[] SplitData => _barcodeData.Split(_BARCODE_STEP_DELIMITER);
         /// <summary>
         /// 컴퍼니
@@ -47,5 +56,11 @@ namespace WinformApp1.Models
                     return 0.0f;
             }
         }
+
+        /// <summary>
+        /// 유효한 바코드 데이터인지 여부를 반환
+        /// </summary>
+        /// <returns>유효한 바코드 여부</returns>
+        public bool ValidBarcode => SplitData.Length == _ELEMENT_AVAIL_COUNT;
     }
 }

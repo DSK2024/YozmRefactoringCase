@@ -20,6 +20,7 @@ namespace WinformApp1
     public partial class ReceiveInspection : Form
     {
         BarcodeScanner _scanner;
+        Action<byte[]> barcodeReadCallback;
         public ReceiveInspection()
         {
             InitializeComponent();
@@ -29,47 +30,41 @@ namespace WinformApp1
         {
             btnInit_Click(this, null);
 
-            Action<byte[]> barcodeReadCallback = (buffer) =>
-            {
-                string barcode = UTF32Encoding.UTF8.GetString(buffer);
+            barcodeReadCallback = (buffer) => {
+                var barcode = new BarcodeInfo(buffer);
                 if (txtBarcodeData.InvokeRequired)
                 {
-                    txtBarcodeData.Invoke((MethodInvoker)(() =>
-                    {
-                        txtBarcodeData.Text = barcode;
+                    txtBarcodeData.Invoke((MethodInvoker)(() => {
+                        txtBarcodeData.Text = barcode.DataText;
                     }));
                 }
                 else
                 {
-                    txtBarcodeData.Text = barcode;
+                    txtBarcodeData.Text = barcode.DataText;
                 }
 
-                var data = barcode.Split('#');
-                if (data.Length == 7)
+                if (barcode.ValidBarcode)
                 {
-                    var partNo = data[4];
                     if (txtPart.InvokeRequired)
                     {
-                        txtPart.Invoke((MethodInvoker)(() =>
-                        {
-                            txtPart.Text = partNo;
+                        txtPart.Invoke((MethodInvoker)(() => {
+                            txtPart.Text = barcode.PartNo;
                         }));
                     }
                     else
                     {
-                        txtPart.Text = partNo;
+                        txtPart.Text = barcode.PartNo;
                     }
-                    var weight = data[5];
+
                     if (lblStandWeight.InvokeRequired)
                     {
-                        lblStandWeight.Invoke((MethodInvoker)(() =>
-                        {
-                            lblStandWeight.Text = $"{weight} g";
+                        lblStandWeight.Invoke((MethodInvoker)(() => {
+                            lblStandWeight.Text = $"{barcode.StandardWeight} g";
                         }));
                     }
                     else
                     {
-                        lblStandWeight.Text = $"{weight} g";
+                        lblStandWeight.Text = $"{barcode.StandardWeight} g";
                     }
                 }
                 else
