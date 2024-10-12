@@ -38,15 +38,14 @@
             this.label1 = new System.Windows.Forms.Label();
             this.txtBarcodeData = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.lblOk = new System.Windows.Forms.Label();
-            this.lblNG = new System.Windows.Forms.Label();
-            this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
-            this.serialPort2 = new System.IO.Ports.SerialPort(this.components);
-            this.btnInit = new System.Windows.Forms.Button();
             this.btnInspect = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.btnInit = new System.Windows.Forms.Button();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.tslStatus = new System.Windows.Forms.ToolStripLabel();
+            this.rhlResult = new WinformApp1.UserControls.ResultHighlighter();
+            this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
+            this.serialPort2 = new System.IO.Ports.SerialPort(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -66,10 +65,9 @@
             this.tableLayoutPanel1.Controls.Add(this.label5, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.btnInspect, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.lblOk, 1, 3);
-            this.tableLayoutPanel1.Controls.Add(this.lblNG, 2, 3);
             this.tableLayoutPanel1.Controls.Add(this.btnInit, 2, 4);
             this.tableLayoutPanel1.Controls.Add(this.toolStrip1, 0, 5);
+            this.tableLayoutPanel1.Controls.Add(this.rhlResult, 1, 3);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Font = new System.Drawing.Font("돋움", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
@@ -172,68 +170,6 @@
             this.label5.Text = "표준|측정";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label2.Font = new System.Drawing.Font("돋움", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label2.Location = new System.Drawing.Point(3, 123);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(184, 41);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "판정";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lblOk
-            // 
-            this.lblOk.AutoSize = true;
-            this.lblOk.BackColor = System.Drawing.Color.Blue;
-            this.lblOk.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblOk.Font = new System.Drawing.Font("돋움", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.lblOk.ForeColor = System.Drawing.Color.White;
-            this.lblOk.Location = new System.Drawing.Point(193, 123);
-            this.lblOk.Name = "lblOk";
-            this.lblOk.Size = new System.Drawing.Size(224, 41);
-            this.lblOk.TabIndex = 4;
-            this.lblOk.Text = "OK";
-            this.lblOk.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lblNG
-            // 
-            this.lblNG.AutoSize = true;
-            this.lblNG.BackColor = System.Drawing.Color.Gray;
-            this.lblNG.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblNG.Font = new System.Drawing.Font("돋움", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.lblNG.ForeColor = System.Drawing.Color.White;
-            this.lblNG.Location = new System.Drawing.Point(423, 123);
-            this.lblNG.Name = "lblNG";
-            this.lblNG.Size = new System.Drawing.Size(225, 41);
-            this.lblNG.TabIndex = 5;
-            this.lblNG.Text = "NG";
-            this.lblNG.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // serialPort1
-            // 
-            this.serialPort1.PortName = "COM3";
-            this.serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort1_DataReceived);
-            // 
-            // serialPort2
-            // 
-            this.serialPort2.PortName = "COM4";
-            this.serialPort2.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort2_DataReceived);
-            // 
-            // btnInit
-            // 
-            this.btnInit.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btnInit.Font = new System.Drawing.Font("돋움", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btnInit.Location = new System.Drawing.Point(427, 167);
-            this.btnInit.Name = "btnInit";
-            this.btnInit.Size = new System.Drawing.Size(221, 54);
-            this.btnInit.TabIndex = 11;
-            this.btnInit.Text = "초기화";
-            this.btnInit.UseVisualStyleBackColor = true;
-            this.btnInit.Click += new System.EventHandler(this.btnInit_Click);
-            // 
             // btnInspect
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.btnInspect, 2);
@@ -246,6 +182,30 @@
             this.btnInspect.Text = "검사완료";
             this.btnInspect.UseVisualStyleBackColor = true;
             this.btnInspect.Click += new System.EventHandler(this.btnInspect_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label2.Font = new System.Drawing.Font("돋움", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label2.Location = new System.Drawing.Point(3, 123);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(184, 41);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "판정";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btnInit
+            // 
+            this.btnInit.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btnInit.Font = new System.Drawing.Font("돋움", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btnInit.Location = new System.Drawing.Point(427, 167);
+            this.btnInit.Name = "btnInit";
+            this.btnInit.Size = new System.Drawing.Size(221, 54);
+            this.btnInit.TabIndex = 11;
+            this.btnInit.Text = "초기화";
+            this.btnInit.UseVisualStyleBackColor = true;
+            this.btnInit.Click += new System.EventHandler(this.btnInit_Click);
             // 
             // toolStrip1
             // 
@@ -264,6 +224,26 @@
             this.tslStatus.Name = "tslStatus";
             this.tslStatus.Size = new System.Drawing.Size(52, 18);
             this.tslStatus.Text = "연결OK";
+            // 
+            // rhlResult
+            // 
+            this.tableLayoutPanel1.SetColumnSpan(this.rhlResult, 2);
+            this.rhlResult.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rhlResult.Location = new System.Drawing.Point(196, 129);
+            this.rhlResult.Margin = new System.Windows.Forms.Padding(6);
+            this.rhlResult.Name = "rhlResult";
+            this.rhlResult.Size = new System.Drawing.Size(449, 29);
+            this.rhlResult.TabIndex = 13;
+            // 
+            // serialPort1
+            // 
+            this.serialPort1.PortName = "COM3";
+            this.serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort1_DataReceived);
+            // 
+            // serialPort2
+            // 
+            this.serialPort2.PortName = "COM4";
+            this.serialPort2.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort2_DataReceived);
             // 
             // ReceiveInspection
             // 
@@ -289,8 +269,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtBarcodeData;
-        private System.Windows.Forms.Label lblNG;
-        private System.Windows.Forms.Label lblOk;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label txtPart;
         private System.Windows.Forms.Label label8;
@@ -302,6 +280,7 @@
         private System.Windows.Forms.Button btnInit;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripLabel tslStatus;
+        private UserControls.ResultHighlighter rhlResult;
     }
 }
 
