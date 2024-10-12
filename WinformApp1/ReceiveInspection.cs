@@ -18,6 +18,7 @@ namespace WinformApp1
 {
     public partial class ReceiveInspection : Form
     {
+        Action<Control, string> TextSetAsync;
         public ReceiveInspection()
         {
             InitializeComponent();
@@ -26,6 +27,18 @@ namespace WinformApp1
         private void ReceiveInspection_Load(object sender, EventArgs e)
         {
             btnInit_Click(this, null);
+
+            TextSetAsync = (control, text) =>
+            {
+                if (control.InvokeRequired)
+                {
+                    control.Invoke(new Action(() => control.Text = text));
+                }
+                else
+                {
+                    control.Text = text;
+                }
+            };
 
             var t1 = new Thread(() => {
                 while(true)
