@@ -196,10 +196,8 @@ namespace WinformApp1
         /// <param name="allowError">허용오차</param>
         /// <param name="weight">검증할 중량값</param>
         /// <returns>허용오차 범위 안의 중량이면 true 아니면 false 반환한다</returns>
-        private bool MarginOfErrorTest(float standardWeight, float allowError, float weight)
-        {
-            return standardWeight + allowError > weight && standardWeight - allowError < weight;
-        }
+        private bool MarginOfErrorTest(float standardWeight, float allowError, float weight) => 
+            standardWeight + allowError > weight && standardWeight - allowError < weight;
 
         // 하단 상태 정보 메세지
         private void StatusMessageShow(string message)
