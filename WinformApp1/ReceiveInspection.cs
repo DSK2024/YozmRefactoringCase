@@ -166,17 +166,7 @@ namespace WinformApp1
                 serialPort2.Read(buffer, 0, bytes);
                 var weight = BitConverter.ToSingle(buffer, 0);
 
-                if (lblMeanWeight.InvokeRequired)
-                {
-                    lblMeanWeight.Invoke((MethodInvoker)(() =>
-                    {
-                        lblMeanWeight.Text = $"{weight} g";
-                    }));
-                }
-                else
-                {
-                    lblMeanWeight.Text = $"{weight} g";
-                }
+                TextSetThreadSafe(lblMeanWeight, $"{weight} g");
 
                 var sStandard = lblStandWeight.Text.Substring(0, lblStandWeight.Text.Length - 3);
                 var standard = 0.0f;
