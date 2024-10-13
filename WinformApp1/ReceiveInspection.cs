@@ -172,7 +172,7 @@ namespace WinformApp1
                 var standard = 0.0f;
                 if (float.TryParse(sStandard, out standard))
                 {
-                    if (standard + 0.5f > weight && standard - 0.5f < weight)
+                    if (MarginOfErrorTest(standard, 0.5f, weight))
                     {
                         lblOk.BackColor = System.Drawing.Color.Blue;
                         lblNG.BackColor = System.Drawing.Color.Gray;
@@ -186,6 +186,18 @@ namespace WinformApp1
             {
                 StatusMessageShow(ex.Message);
             }
+        }
+
+        /// <summary>
+        /// 허용오차 범위인지 판별하여 bool을 반환한다.
+        /// </summary>
+        /// <param name="standardWeight">표준중량</param>
+        /// <param name="allowError">허용오차</param>
+        /// <param name="weight">검증할 중량값</param>
+        /// <returns>허용오차 범위 안의 중량이면 true 아니면 false 반환한다</returns>
+        private bool MarginOfErrorTest(float standardWeight, float allowError, float weight)
+        {
+            return standardWeight + allowError > weight && standardWeight - allowError < weight;
         }
 
         // 하단 상태 정보 메세지
