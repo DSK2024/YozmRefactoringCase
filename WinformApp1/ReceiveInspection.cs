@@ -19,6 +19,7 @@ namespace WinformApp1
     public partial class ReceiveInspection : Form
     {
         Action<Control, string> TextSetThreadSafe;
+        const float ALLOW_ERROR_WEIGHT_ADD = 0.5f;
         public ReceiveInspection()
         {
             InitializeComponent();
@@ -172,7 +173,7 @@ namespace WinformApp1
                 var standard = 0.0f;
                 if (float.TryParse(sStandard, out standard))
                 {
-                    if (MarginOfErrorTest(standard, 0.5f, weight))
+                    if (MarginOfErrorTest(standard, ALLOW_ERROR_WEIGHT_ADD, weight))
                     {
                         lblOk.BackColor = System.Drawing.Color.Blue;
                         lblNG.BackColor = System.Drawing.Color.Gray;
