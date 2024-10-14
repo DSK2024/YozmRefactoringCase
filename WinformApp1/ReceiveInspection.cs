@@ -45,44 +45,14 @@ namespace WinformApp1
                 }
             };
 
-            var t1 = new Thread(() => {
-                while(true)
             barcodeReadCallback = (buffer) => {
                 var barcode = new BarcodeInfo(buffer);
-                if (txtBarcodeData.InvokeRequired)
-                {
-                    txtBarcodeData.Invoke((MethodInvoker)(() => {
-                        txtBarcodeData.Text = barcode.DataText;
-                    }));
-                }
-                else
-                {
-                    txtBarcodeData.Text = barcode.DataText;
-                }
+                TextSetThreadSafe(txtBarcodeData, barcode.DataText);
 
                 if (barcode.ValidBarcode)
                 {
-                    if (txtPart.InvokeRequired)
-                    {
-                        txtPart.Invoke((MethodInvoker)(() => {
-                            txtPart.Text = barcode.PartNo;
-                        }));
-                    }
-                    else
-                    {
-                        txtPart.Text = barcode.PartNo;
-                    }
-
-                    if (lblStandWeight.InvokeRequired)
-                    {
-                        lblStandWeight.Invoke((MethodInvoker)(() => {
-                            lblStandWeight.Text = $"{barcode.StandardWeight} g";
-                        }));
-                    }
-                    else
-                    {
-                        lblStandWeight.Text = $"{barcode.StandardWeight} g";
-                    }
+                    TextSetThreadSafe(txtPart, barcode.PartNo);
+                    TextSetThreadSafe(lblStandWeight, $"{barcode.StandardWeight} g");
                 }
                 else
                 {
