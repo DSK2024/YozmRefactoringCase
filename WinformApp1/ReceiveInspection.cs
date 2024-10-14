@@ -22,6 +22,8 @@ namespace WinformApp1
     {
         BarcodeScanner _scanner;
         Action<byte[]> barcodeReadCallback;
+        Action<Control, string> TextSetThreadSafe;
+        const float ALLOW_ERROR_WEIGHT_ADD = 0.5f;
         public ReceiveInspection()
         {
             InitializeComponent();
@@ -31,6 +33,20 @@ namespace WinformApp1
         {
             btnInit_Click(this, null);
 
+            TextSetThreadSafe = (control, text) =>
+            {
+                if (control.InvokeRequired)
+                {
+                    control.Invoke(new Action(() => control.Text = text));
+                }
+                else
+                {
+                    control.Text = text;
+                }
+            };
+
+            var t1 = new Thread(() => {
+                while(true)
             barcodeReadCallback = (buffer) => {
                 var barcode = new BarcodeInfo(buffer);
                 if (txtBarcodeData.InvokeRequired)
@@ -159,17 +175,7 @@ namespace WinformApp1
                 serialPort2.Read(buffer, 0, bytes);
                 var weight = BitConverter.ToSingle(buffer, 0);
 
-                if (lblMeanWeight.InvokeRequired)
-                {
-                    lblMeanWeight.Invoke((MethodInvoker)(() =>
-                    {
-                        lblMeanWeight.Text = $"{weight} g";
-                    }));
-                }
-                else
-                {
-                    lblMeanWeight.Text = $"{weight} g";
-                }
+                TextSetThreadSafe(lblMeanWeight, $"{weight} g");
 
                 var sStandard = lblStandWeight.Text.Substring(0, lblStandWeight.Text.Length - 3);
                 var standard = 0.0f;
@@ -188,6 +194,16 @@ namespace WinformApp1
                 StatusMessageShow(ex.Message);
             }
         }
+
+        /// <summary>
+        /// 허용오차 범위인지 판별하여 bool을 반환한다.
+        /// </summary>
+        /// <param name="standardWeight">표준중량</param>
+        /// <param name="allowError">허용오차</param>
+        /// <param name="weight">검증할 중량값</param>
+        /// <returns>허용오차 범위 안의 중량이면 true 아니면 false 반환한다</returns>
+        private bool MarginOfErrorTest(float standardWeight, float allowError, float weight) => 
+            standardWeight + allowError > weight && standardWeight - allowError < weight;
 
         // 하단 상태 정보 메세지
         public void StatusMessageShow(string message)
