@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WinformApp1.UserControls;
 using WinformApp1.Models;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolTip;
 
@@ -126,7 +127,7 @@ namespace WinformApp1
                     new KeyValuePair<string, string>("barcode", txtBarcodeData.Text),
                     new KeyValuePair<string, string>("model", txtPart.Text),
                     new KeyValuePair<string, string>("weight", lblMeanWeight.Text),
-                    new KeyValuePair<string, string>("ok_ng", lblOk.BackColor == Color.Blue ? "OK" : "NG")
+                    new KeyValuePair<string, string>("ok_ng", rhlResult.Result == ResultType.OK ? "OK" : "NG")
                 });
                 var result = client.PostAsync("/api/receive/inspect", content);
                 btnInit_Click(this, null);
@@ -144,8 +145,7 @@ namespace WinformApp1
             txtBarcodeData.Text = txtPart.Text = string.Empty;
             lblStandWeight.Text = "0.0 g";
             lblMeanWeight.Text = "0.0 g";
-            lblOk.BackColor = Color.Black;
-            lblNG.BackColor = Color.Gray;
+            rhlResult.Result = ResultType.None;
         }
 
         // 중량계 수신 이벤트
@@ -175,15 +175,13 @@ namespace WinformApp1
                 var standard = 0.0f;
                 if (float.TryParse(sStandard, out standard))
                 {
-                    if (standard + 0.5f > weight && standard - 0.5f < weight)
-                    {
-                        lblOk.BackColor = System.Drawing.Color.Blue;
-                        lblNG.BackColor = System.Drawing.Color.Gray;
-                        return;
-                    }
+                    rhlResult.Result = standard + 0.5f > weight && standard - 0.5f < weight ? ResultType.OK : ResultType.NG;
                 }
-                lblOk.BackColor = System.Drawing.Color.Gray;
-                lblNG.BackColor = System.Drawing.Color.Red;
+                else
+                {
+                    rhlResult.Result = ResultType.None;
+                    StatusMessageShow("표준중량 값에 이상이 있습니다");
+                }
             }
             catch (IOException ex)
             {
