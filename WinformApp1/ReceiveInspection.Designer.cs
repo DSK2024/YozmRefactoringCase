@@ -44,7 +44,6 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.tslStatus = new System.Windows.Forms.ToolStripLabel();
             this.rhlResult = new WinformApp1.UserControls.ResultHighlighter();
-            this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.serialPort2 = new System.IO.Ports.SerialPort(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
