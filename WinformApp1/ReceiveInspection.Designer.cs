@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReceiveInspection));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.txtPart = new System.Windows.Forms.Label();
@@ -44,7 +43,6 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.tslStatus = new System.Windows.Forms.ToolStripLabel();
             this.rhlResult = new WinformApp1.UserControls.ResultHighlighter();
-            this.serialPort2 = new System.IO.Ports.SerialPort(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -235,11 +233,6 @@
             this.rhlResult.Size = new System.Drawing.Size(449, 29);
             this.rhlResult.TabIndex = 13;
             // 
-            // serialPort2
-            // 
-            this.serialPort2.PortName = "COM4";
-            this.serialPort2.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort2_DataReceived);
-            // 
             // ReceiveInspection
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -269,7 +262,6 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label lblMeanWeight;
         private System.Windows.Forms.Label lblStandWeight;
-        private System.IO.Ports.SerialPort serialPort2;
         private System.Windows.Forms.Button btnInspect;
         private System.Windows.Forms.Button btnInit;
         private System.Windows.Forms.ToolStrip toolStrip1;

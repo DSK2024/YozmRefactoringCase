@@ -140,12 +140,6 @@ namespace WinformApp1
             rhlResult.Result = ResultType.None;
         }
 
-        // 중량계 수신 이벤트
-        private void serialPort2_DataReceived(object sender, SerialDataReceivedEventArgs e)
-        {
-
-        }
-
         /// <summary>
         /// 허용오차 범위인지 판별하여 bool을 반환한다.
         /// </summary>
