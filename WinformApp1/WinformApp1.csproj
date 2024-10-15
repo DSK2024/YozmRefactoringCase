@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Global.cs" />
     <Compile Include="Models\BarcodeInfo.cs" />
     <Compile Include="Models\BarcodeScanner.cs" />
     <Compile Include="Models\BarcodeScannerStatus.cs" />

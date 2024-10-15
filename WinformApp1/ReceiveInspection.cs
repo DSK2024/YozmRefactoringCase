@@ -20,22 +20,15 @@ namespace WinformApp1
 {
     public partial class ReceiveInspection : Form
     {
-        BarcodeScanner _scanner;
-        Action<byte[]> barcodeReadCallback;
-        WeightScaler _weighter;
-        Action<byte[]> scaleReadCallback;
         Action<Control, string> TextSetThreadSafe;
+        BarcodeScanner _scanner;
+        WeightScaler _weighter;
+        Action<byte[]> barcodeReadCallback;
+        Action<byte[]> scaleReadCallback;
         const string ZERO_FLOAT_VALUE = "0.0";
-        const string SCANNER_PORT_NAME = "COM3";
-        const string SCALE_PORT_NAME = "COM4";
         public ReceiveInspection()
         {
             InitializeComponent();
-        }
-
-        private void ReceiveInspection_Load(object sender, EventArgs e)
-        {
-            btnInit_Click(this, null);
 
             TextSetThreadSafe = (control, text) =>
             {
@@ -64,18 +57,6 @@ namespace WinformApp1
                 }
             };
 
-            var scannerPort = new SerialPort()
-            {
-                PortName = SCANNER_PORT_NAME,
-                BaudRate = 9600,
-                DataBits = 8,
-                Parity = Parity.None,
-                StopBits = StopBits.One
-            };
-            var port = new XerialPort(scannerPort, barcodeReadCallback);
-            _scanner = new BarcodeScanner(port);
-            _scanner.ConnectStart();
-
             scaleReadCallback += (buffer) =>
             {
                 var weight = BitConverter.ToSingle(buffer, 0);
@@ -92,19 +73,19 @@ namespace WinformApp1
                     StatusMessageShow("표준중량 값에 이상이 있습니다");
                 }
             };
-            var scalePort = new SerialPort()
-            {
-                PortName = SCALE_PORT_NAME,
-                BaudRate = 9600,
-                DataBits = 8,
-                Parity = Parity.None,
-                StopBits = StopBits.One
-            };
-            var port2 = new XerialPort(scalePort, scaleReadCallback);
-            _weighter = new WeightScaler(port2);
+        }
+
+        private void ReceiveInspection_Load(object sender, EventArgs e)
+        {
+            btnInit_Click(this, null);
+
+            var scannerPort = new XerialPort(Global.Scanner_Port, barcodeReadCallback);
+            _scanner = new BarcodeScanner(scannerPort);
+            _scanner.ConnectStart();
+
+            var scalePort = new XerialPort(Global.Scale_Port, scaleReadCallback);
+            _weighter = new WeightScaler(scalePort);
             _weighter.ConnectStart();
-
-
         }
 
         // 입고검사 완료
