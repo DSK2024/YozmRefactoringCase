@@ -23,6 +23,7 @@ namespace WinformApp1
         BarcodeScanner _scanner;
         Action<byte[]> barcodeReadCallback;
         Action<Control, string> TextSetThreadSafe;
+        const string ZERO_FLOAT_VALUE = "0.0";
         const float ALLOW_ERROR_WEIGHT_ADD = 0.5f;
         public ReceiveInspection()
         {
@@ -52,7 +53,7 @@ namespace WinformApp1
                 if (barcode.ValidBarcode)
                 {
                     TextSetThreadSafe(txtPart, barcode.PartNo);
-                    TextSetThreadSafe(lblStandWeight, $"{barcode.StandardWeight} g");
+                    TextSetThreadSafe(lblStandWeight, $"{barcode.StandardWeight}");
                 }
                 else
                 {
@@ -129,7 +130,7 @@ namespace WinformApp1
         private void btnInit_Click(object sender, EventArgs e)
         {
             txtBarcodeData.Text = txtPart.Text = string.Empty;
-            lblStandWeight.Text = lblMeanWeight.Text = "0.0 g";
+            lblStandWeight.Text = lblMeanWeight.Text = ZERO_FLOAT_VALUE;
             rhlResult.Result = ResultType.None;
         }
 
@@ -144,11 +145,10 @@ namespace WinformApp1
                 serialPort2.Read(buffer, 0, bytes);
                 var weight = BitConverter.ToSingle(buffer, 0);
 
-                TextSetThreadSafe(lblMeanWeight, $"{weight} g");
+                TextSetThreadSafe(lblMeanWeight, $"{weight}");
 
-                var sStandard = lblStandWeight.Text.Substring(0, lblStandWeight.Text.Length - 3);
                 var standard = 0.0f;
-                if (float.TryParse(sStandard, out standard))
+                if (float.TryParse(lblStandWeight.Text, out standard))
                 {
                     rhlResult.Result = standard + 0.5f > weight && standard - 0.5f < weight ? ResultType.OK : ResultType.NG;
                 }

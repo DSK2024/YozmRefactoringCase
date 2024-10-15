@@ -117,7 +117,7 @@
             this.lblMeanWeight.Name = "lblMeanWeight";
             this.lblMeanWeight.Size = new System.Drawing.Size(225, 41);
             this.lblMeanWeight.TabIndex = 8;
-            this.lblMeanWeight.Text = "0.0 g";
+            this.lblMeanWeight.Text = "0.0";
             this.lblMeanWeight.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblStandWeight
@@ -129,7 +129,7 @@
             this.lblStandWeight.Name = "lblStandWeight";
             this.lblStandWeight.Size = new System.Drawing.Size(224, 41);
             this.lblStandWeight.TabIndex = 7;
-            this.lblStandWeight.Text = "7.5 g";
+            this.lblStandWeight.Text = "7.5";
             this.lblStandWeight.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label1
@@ -166,7 +166,7 @@
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(184, 41);
             this.label5.TabIndex = 6;
-            this.label5.Text = "표준|측정";
+            this.label5.Text = "표준|측정 (g)";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnInspect
@@ -231,6 +231,7 @@
             this.rhlResult.Location = new System.Drawing.Point(196, 129);
             this.rhlResult.Margin = new System.Windows.Forms.Padding(6);
             this.rhlResult.Name = "rhlResult";
+            this.rhlResult.Result = WinformApp1.UserControls.ResultType.None;
             this.rhlResult.Size = new System.Drawing.Size(449, 29);
             this.rhlResult.TabIndex = 13;
             // 
