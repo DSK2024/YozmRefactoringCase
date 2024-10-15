@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
+using System.Runtime.InteropServices;
 using WinformApp1.Models;
 
 namespace UnitTestWinformApp
@@ -31,6 +32,30 @@ namespace UnitTestWinformApp
             var scale = new WeightScaler(port);
             scale.ConnectStart();
             Assert.AreEqual(scale.Status, WeightScalerStatus.Started);
+        }
+
+        [TestMethod]
+        public void 판정결과_OK()
+        {
+            var compare = 7.5f;
+            var val = 7.75f;
+            var testType = JudgmentType.MarginOfError;
+            var judg = new Judgmenter(testType);
+            var condition = judg.Condition(compare, val);
+
+            Assert.AreEqual(condition, true);
+        }
+
+        [TestMethod]
+        public void 판정결과_NG()
+        {
+            var compare = 7.5f;
+            var val = 8.9f;
+            var testType = JudgmentType.MarginOfError;
+            var judg = new Judgmenter(testType);
+            var condition = judg.Condition(compare, val);
+
+            Assert.AreEqual(condition, false);
         }
     }
 }

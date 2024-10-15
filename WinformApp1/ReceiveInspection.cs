@@ -26,7 +26,6 @@ namespace WinformApp1
         Action<byte[]> scaleReadCallback;
         Action<Control, string> TextSetThreadSafe;
         const string ZERO_FLOAT_VALUE = "0.0";
-        const float ALLOW_ERROR_WEIGHT_ADD = 0.5f;
         const string SCANNER_PORT_NAME = "COM3";
         const string SCALE_PORT_NAME = "COM4";
         public ReceiveInspection()
@@ -81,10 +80,11 @@ namespace WinformApp1
             {
                 var weight = BitConverter.ToSingle(buffer, 0);
                 TextSetThreadSafe(lblMeanWeight, $"{weight}");
+                var judgment = new Judgmenter(JudgmentType.MarginOfError);
                 var standard = 0.0f;
                 if (float.TryParse(lblStandWeight.Text, out standard))
                 {
-                    rhlResult.Result = MarginOfErrorTest(standard, ALLOW_ERROR_WEIGHT_ADD, weight) ? ResultType.OK : ResultType.NG;
+                    rhlResult.Result = judgment.Condition(standard, weight) ? ResultType.OK : ResultType.NG;
                 }
                 else
                 {
@@ -139,16 +139,6 @@ namespace WinformApp1
             lblStandWeight.Text = lblMeanWeight.Text = ZERO_FLOAT_VALUE;
             rhlResult.Result = ResultType.None;
         }
-
-        /// <summary>
-        /// 허용오차 범위인지 판별하여 bool을 반환한다.
-        /// </summary>
-        /// <param name="standardWeight">표준중량</param>
-        /// <param name="allowError">허용오차</param>
-        /// <param name="weight">검증할 중량값</param>
-        /// <returns>허용오차 범위 안의 중량이면 true 아니면 false 반환한다</returns>
-        private bool MarginOfErrorTest(float standardWeight, float allowError, float weight) => 
-            standardWeight + allowError > weight && standardWeight - allowError < weight;
 
         // 하단 상태 정보 메세지
         public void StatusMessageShow(string message)
