@@ -113,7 +113,7 @@ namespace WinformApp1
                     new KeyValuePair<string, string>("barcode", txtBarcodeData.Text),
                     new KeyValuePair<string, string>("model", txtPart.Text),
                     new KeyValuePair<string, string>("weight", lblMeanWeight.Text),
-                    new KeyValuePair<string, string>("ok_ng", rhlResult.Result == ResultType.OK ? "OK" : "NG")
+                    new KeyValuePair<string, string>("ok_ng", rhlResult.Result == ResultType.OK ? ResultTypeText.OK : ResultTypeText.NG)
                 });
                 var result = client.PostAsync("/api/receive/inspect", content);
                 btnInit_Click(this, null);
@@ -129,8 +129,7 @@ namespace WinformApp1
         private void btnInit_Click(object sender, EventArgs e)
         {
             txtBarcodeData.Text = txtPart.Text = string.Empty;
-            lblStandWeight.Text = "0.0 g";
-            lblMeanWeight.Text = "0.0 g";
+            lblStandWeight.Text = lblMeanWeight.Text = "0.0 g";
             rhlResult.Result = ResultType.None;
         }
 

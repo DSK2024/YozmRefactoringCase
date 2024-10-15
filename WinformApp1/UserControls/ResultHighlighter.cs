@@ -11,6 +11,11 @@ using System.Windows.Forms;
 namespace WinformApp1.UserControls
 {
     public enum ResultType { OK, NG, None }
+    public struct ResultTypeText
+    {
+        public const string OK = "OK";
+        public const string NG = "NG";
+    }
     public partial class ResultHighlighter : UserControl
     {
         readonly Color OkColor = Color.Blue;
