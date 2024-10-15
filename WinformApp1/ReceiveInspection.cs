@@ -25,6 +25,7 @@ namespace WinformApp1
         Action<Control, string> TextSetThreadSafe;
         const string ZERO_FLOAT_VALUE = "0.0";
         const float ALLOW_ERROR_WEIGHT_ADD = 0.5f;
+        const string COM_PORT_NAME = "COM3";
         public ReceiveInspection()
         {
             InitializeComponent();
@@ -63,7 +64,7 @@ namespace WinformApp1
 
             var scannerPort = new SerialPort()
             {
-                PortName = "COM3",
+                PortName = COM_PORT_NAME,
                 BaudRate = 9600,
                 DataBits = 8,
                 Parity = Parity.None,
