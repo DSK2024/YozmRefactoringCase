@@ -22,10 +22,13 @@ namespace WinformApp1
     {
         BarcodeScanner _scanner;
         Action<byte[]> barcodeReadCallback;
+        WeightScaler _weighter;
+        Action<byte[]> scaleReadCallback;
         Action<Control, string> TextSetThreadSafe;
         const string ZERO_FLOAT_VALUE = "0.0";
         const float ALLOW_ERROR_WEIGHT_ADD = 0.5f;
-        const string COM_PORT_NAME = "COM3";
+        const string SCANNER_PORT_NAME = "COM3";
+        const string SCALE_PORT_NAME = "COM4";
         public ReceiveInspection()
         {
             InitializeComponent();
@@ -64,7 +67,7 @@ namespace WinformApp1
 
             var scannerPort = new SerialPort()
             {
-                PortName = COM_PORT_NAME,
+                PortName = SCANNER_PORT_NAME,
                 BaudRate = 9600,
                 DataBits = 8,
                 Parity = Parity.None,
@@ -74,33 +77,34 @@ namespace WinformApp1
             _scanner = new BarcodeScanner(port);
             _scanner.ConnectStart();
 
-            var t2 = new Thread(() =>
+            scaleReadCallback += (buffer) =>
             {
-                while(true)
+                var weight = BitConverter.ToSingle(buffer, 0);
+                TextSetThreadSafe(lblMeanWeight, $"{weight}");
+                var standard = 0.0f;
+                if (float.TryParse(lblStandWeight.Text, out standard))
                 {
-                    if (!serialPort2.IsOpen)
-                    {
-                        try
-                        {
-                            serialPort2.Open();
-                            if (serialPort2.IsOpen)
-                                StatusMessageShow("중량계 연결OK");
-                        }
-                        catch (IOException ex)
-                        {
-                            StatusMessageShow("중량계 연결에 문제가 있습니다. 케이블 연결 여부 혹은 중량계 전원을 확인하세요.");
-                        }
-                        catch (Exception ex)
-                        {
-                            StatusMessageShow(ex.Message);
-                        }
-                    }
-                    Thread.Sleep(5500);
+                    rhlResult.Result = MarginOfErrorTest(standard, ALLOW_ERROR_WEIGHT_ADD, weight) ? ResultType.OK : ResultType.NG;
                 }
-            });
+                else
+                {
+                    rhlResult.Result = ResultType.None;
+                    StatusMessageShow("표준중량 값에 이상이 있습니다");
+                }
+            };
+            var scalePort = new SerialPort()
+            {
+                PortName = SCALE_PORT_NAME,
+                BaudRate = 9600,
+                DataBits = 8,
+                Parity = Parity.None,
+                StopBits = StopBits.One
+            };
+            var port2 = new XerialPort(scalePort, scaleReadCallback);
+            _weighter = new WeightScaler(port2);
+            _weighter.ConnectStart();
 
-            t2.IsBackground = true;
-            t2.Start();
+
         }
 
         // 입고검사 완료
@@ -118,6 +122,7 @@ namespace WinformApp1
                     new KeyValuePair<string, string>("ok_ng", rhlResult.Result == ResultType.OK ? ResultTypeText.OK : ResultTypeText.NG)
                 });
                 var result = client.PostAsync("/api/receive/inspect", content);
+                StatusMessageShow("결과가 전송되었습니다");
                 btnInit_Click(this, null);
             }
             catch (Exception ex)
@@ -139,30 +144,6 @@ namespace WinformApp1
         private void serialPort2_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
 
-            try
-            {
-                var bytes = serialPort2.BytesToRead;
-                var buffer = new byte[bytes];
-                serialPort2.Read(buffer, 0, bytes);
-                var weight = BitConverter.ToSingle(buffer, 0);
-
-                TextSetThreadSafe(lblMeanWeight, $"{weight}");
-
-                var standard = 0.0f;
-                if (float.TryParse(lblStandWeight.Text, out standard))
-                {
-                    rhlResult.Result = MarginOfErrorTest(standard, ALLOW_ERROR_WEIGHT_ADD, weight) ? ResultType.OK : ResultType.NG;
-                }
-                else
-                {
-                    rhlResult.Result = ResultType.None;
-                    StatusMessageShow("표준중량 값에 이상이 있습니다");
-                }
-            }
-            catch (IOException ex)
-            {
-                StatusMessageShow(ex.Message);
-            }
         }
 
         /// <summary>
