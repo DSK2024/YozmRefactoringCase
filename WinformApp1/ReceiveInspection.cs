@@ -177,8 +177,13 @@ namespace WinformApp1
         // 하단 상태 정보 메세지
         public void StatusMessageShow(string message)
         {
-            this.BeginInvoke((Action)(() => {
-                tslStatus.Text = DateTime.Now.ToString("HH:mm:ss") + ":" + message;
+            toolStrip1.BeginInvoke(new Action(async () =>
+            {
+                var msg = $"{DateTime.Now.ToString("HH:mm:ss")}:{message}";
+                tslStatus.Text = msg;
+                await Task.Delay(5000);
+                if(tslStatus.Text == msg)
+                    tslStatus.Text = string.Empty;
             }));
         }
     }
