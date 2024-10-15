@@ -150,7 +150,7 @@ namespace WinformApp1
                 var standard = 0.0f;
                 if (float.TryParse(lblStandWeight.Text, out standard))
                 {
-                    rhlResult.Result = standard + 0.5f > weight && standard - 0.5f < weight ? ResultType.OK : ResultType.NG;
+                    rhlResult.Result = MarginOfErrorTest(standard, ALLOW_ERROR_WEIGHT_ADD, weight) ? ResultType.OK : ResultType.NG;
                 }
                 else
                 {
