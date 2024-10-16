@@ -14,7 +14,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using WinformApp1.UserControls;
 using WinformApp1.Models;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolTip;
 
 namespace WinformApp1
 {
@@ -41,6 +40,7 @@ namespace WinformApp1
         /// </summary>
         Action<byte[]> scaleReadCallback;
         const string ZERO_FLOAT_VALUE = "0.0";
+        const float ALLOW_ERROR_WEIGHT_ADD = 0.5f;
         public ReceiveInspection()
         {
             InitializeComponent();
@@ -80,7 +80,7 @@ namespace WinformApp1
                 var standard = 0.0f;
                 if (float.TryParse(lblStandWeight.Text, out standard))
                 {
-                    var condition = new ConditionMarginError(standard, 0.5f, weight);
+                    var condition = new ConditionMarginError(standard, ALLOW_ERROR_WEIGHT_ADD, weight);
                     var tester = new Judge(condition);
                     rhlResult.Result = tester.Judgment() ? ResultType.OK : ResultType.NG;
                 }
