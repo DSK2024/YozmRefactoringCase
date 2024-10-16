@@ -23,7 +23,7 @@ namespace UnitTestWinformApp
         {
             var port = GetXerialPortModk();
             var scanner = new BarcodeScanner(port);
-            Assert.AreEqual(scanner.Status, BarcodeScannerStatus.Opened);
+            Assert.AreEqual(scanner.Status, DeviceStatus.Opened);
         }
 
         
@@ -33,7 +33,7 @@ namespace UnitTestWinformApp
             var port = GetXerialPortModk();
             var scanner = new BarcodeScanner(port);
             scanner.ConnectStart();
-            Assert.AreEqual(scanner.Status, BarcodeScannerStatus.Started);
+            Assert.AreEqual(scanner.Status, DeviceStatus.Started);
         }
 
         [TestMethod]

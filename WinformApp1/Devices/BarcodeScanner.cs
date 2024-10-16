@@ -22,46 +22,26 @@ namespace WinformApp1.Devices
     /// //바코드 연결 백그라운드 실행
     /// scanner.ConnectStart();
     /// </example>
-    public class BarcodeScanner
+    public class BarcodeScanner : Device
     {
-        IXerialPort _port;
-        bool _isStart;
         Thread _tConnCheck;
-        /// <summary>
-        /// 중량계 연결상태
-        /// </summary>
-        public BarcodeScannerStatus Status
-        {
-            get {
-                if (_port.IsOpen && _isStart == false)
-                    return BarcodeScannerStatus.Opened;
-                else if (_port.IsOpen && _isStart == true)
-                    return BarcodeScannerStatus.Started;
-                else
-                    return BarcodeScannerStatus.Disopen;
-            }
-        }
-
-        public BarcodeScanner(IXerialPort port)
-        {
-            _port = port;
-        }
+        public BarcodeScanner(IXerialPort port) : base(port) { }
 
         /// <summary>
         /// 바코드스캐너 연속 연결 백그라운드 실행
         /// </summary>
-        public void ConnectStart()
+        public override void ConnectStart()
         {
             _tConnCheck = new Thread(() =>
             {
                 while (true)
                 {
-                    if (!_port.IsOpen)
+                    if (!XPort.IsOpen)
                     {
                         try
                         {
-                            _port.Open();
-                            if (_port.IsOpen)
+                            XPort.Open();
+                            if (XPort.IsOpen)
                                 ProgramGlobal.StatusMessageShow("바코드스캐너 연결OK");
                         }
                         catch (IOException ex)
@@ -78,7 +58,7 @@ namespace WinformApp1.Devices
             });
             _tConnCheck.IsBackground = true;
             _tConnCheck.Start();
-            _isStart = true;
+            IsStart = true;
         }
     }
 }

@@ -4,12 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WinformApp1.Models
+namespace WinformApp1.Devices
 {
-    /// <summary>
-    /// 바코드스캐너 연결상태 열거자
-    /// </summary>
-    public enum BarcodeScannerStatus
+    public enum DeviceStatus
     {
         /// <summary>
         /// 포트 연결없음

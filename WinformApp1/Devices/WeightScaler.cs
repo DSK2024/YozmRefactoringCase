@@ -21,52 +21,26 @@ namespace WinformApp1.Devices
     /// //바코드 연결 백그라운드 실행
     /// scale.ConnectStart();
     /// </example>
-    public class WeightScaler
+    public class WeightScaler : Device
     {
-        IXerialPort _port;
-        bool _is_start = false;
         Thread tConnChecker;
-        /// <summary>
-        /// 중량계 연결상태
-        /// </summary>
-        public WeightScalerStatus Status
-        {
-            get
-            {
-                if (!_is_start && _port.IsOpen)
-                {
-                    return WeightScalerStatus.Opened;
-                }
-                else if (_is_start && _port.IsOpen)
-                {
-                    return WeightScalerStatus.Started;
-                }
-                else
-                {
-                    return WeightScalerStatus.Disopen;
-                }
-            }
-        }
-        public WeightScaler(IXerialPort port)
-        {
-            _port = port;
-        }
+        public WeightScaler(IXerialPort port) : base(port) { }
 
         /// <summary>
         /// 중량계 연속연결 백그라운드 실행
         /// </summary>
-        public void ConnectStart()
+        public override void ConnectStart()
         {
             tConnChecker = new Thread(() =>
             {
                 while (true)
                 {
-                    if (!_port.IsOpen)
+                    if (!XPort.IsOpen)
                     {
                         try
                         {
-                            _port.Open();
-                            if (_port.IsOpen)
+                            XPort.Open();
+                            if (XPort.IsOpen)
                                 ProgramGlobal.StatusMessageShow("중량계 연결OK");
                         }
                         catch (IOException ex)
@@ -84,7 +58,7 @@ namespace WinformApp1.Devices
 
             tConnChecker.IsBackground = true;
             tConnChecker.Start();
-            _is_start = true;
+            IsStart = true;
         }
     }
 }

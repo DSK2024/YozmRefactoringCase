@@ -23,7 +23,7 @@ namespace UnitTestWinformApp
         {
             var port = GetXerialPortModk();
             var scale = new WeightScaler(port);
-            Assert.AreEqual(scale.Status, WeightScalerStatus.Opened);
+            Assert.AreEqual(scale.Status, DeviceStatus.Opened);
         }
 
         [TestMethod]
@@ -32,7 +32,7 @@ namespace UnitTestWinformApp
             var port = GetXerialPortModk();
             var scale = new WeightScaler(port);
             scale.ConnectStart();
-            Assert.AreEqual(scale.Status, WeightScalerStatus.Started);
+            Assert.AreEqual(scale.Status, DeviceStatus.Started);
         }
 
         [TestMethod]

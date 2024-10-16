@@ -46,16 +46,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Devices\Device.cs" />
+    <Compile Include="Devices\DeviceStatus.cs" />
     <Compile Include="ProgramGlobal.cs" />
     <Compile Include="Models\ConditionMarginError.cs" />
     <Compile Include="Models\ICondition.cs" />
     <Compile Include="Models\BarcodeInfo.cs" />
     <Compile Include="Devices\BarcodeScanner.cs" />
-    <Compile Include="Models\BarcodeScannerStatus.cs" />
     <Compile Include="Models\IXerialPort.cs" />
     <Compile Include="Models\Judge.cs" />
     <Compile Include="Devices\WeightScaler.cs" />
-    <Compile Include="Models\WeightScalerStatus.cs" />
     <Compile Include="Models\XerialPort.cs" />
     <Compile Include="ReceiveInspection.cs">
       <SubType>Form</SubType>
