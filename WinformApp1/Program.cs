@@ -8,8 +8,6 @@ namespace WinformApp1
 {
     internal static class Program
     {
-        static public Action<string> statusMessageShow;
-
         /// <summary>
         /// 해당 애플리케이션의 주 진입점입니다.
         /// </summary>
@@ -17,7 +15,7 @@ namespace WinformApp1
         static void Main()
         {
             var f = new ReceiveInspection();
-            Program.statusMessageShow = f.StatusMessageShow;
+            ProgramGlobal.StatusMessageShow = f.StatusMessageShow;
             Application.EnableVisualStyles();
             //Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(f);

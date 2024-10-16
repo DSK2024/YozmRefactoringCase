@@ -13,7 +13,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WinformApp1.UserControls;
-using WinformApp1.Models;
 
 namespace WinformApp1
 {
@@ -22,11 +21,11 @@ namespace WinformApp1
         /// <summary>
         /// 바코드스캐너 객체 멤버
         /// </summary>
-        BarcodeScanner _scanner;
+        Models.BarcodeScanner _scanner;
         /// <summary>
         /// 중량계 객체 멤버
         /// </summary>
-        WeightScaler _weighter;
+        Models.WeightScaler _weighter;
         /// <summary>
         /// 바코드 수신 콜백
         /// </summary>
@@ -42,13 +41,13 @@ namespace WinformApp1
             InitializeComponent();
 
             barcodeReadCallback = (buffer) => {
-                var barcode = new BarcodeInfo(buffer);
-                ThreadSafety.TextSet(txtBarcodeData, barcode.DataText);
+                var barcode = new Models.BarcodeInfo(buffer);
+                Helper.ThreadSafety.TextSet(txtBarcodeData, barcode.DataText);
 
                 if (barcode.ValidBarcode)
                 {
-                    ThreadSafety.TextSet(txtPart, barcode.PartNo);
-                    ThreadSafety.TextSet(lblStandWeight, $"{barcode.StandardWeight}");
+                    Helper.ThreadSafety.TextSet(txtPart, barcode.PartNo);
+                    Helper.ThreadSafety.TextSet(lblStandWeight, $"{barcode.StandardWeight}");
                 }
                 else
                 {
@@ -59,13 +58,13 @@ namespace WinformApp1
             scaleReadCallback += (buffer) =>
             {
                 var weight = BitConverter.ToSingle(buffer, 0);
-                ThreadSafety.TextSet(lblMeanWeight, $"{weight}");
+                Helper.ThreadSafety.TextSet(lblMeanWeight, $"{weight}");
 
                 var standard = 0.0f;
                 if (float.TryParse(lblStandWeight.Text, out standard))
                 {
-                    var condition = new ConditionMarginError(standard, ALLOW_ERROR_WEIGHT_ADD, weight);
-                    var tester = new Judge(condition);
+                    var condition = new Models.ConditionMarginError(standard, ALLOW_ERROR_WEIGHT_ADD, weight);
+                    var tester = new Models.Judge(condition);
                     rhlResult.Result = tester.Judgment() ? ResultType.OK : ResultType.NG;
                 }
                 else
@@ -80,13 +79,13 @@ namespace WinformApp1
         {
             btnInit_Click(this, null);
 
-            _scanner = new BarcodeScanner(
-                Global.GetScannerXerial(barcodeReadCallback)
+            _scanner = new Models.BarcodeScanner(
+                ProgramGlobal.GetScannerXerial(barcodeReadCallback)
             );
             _scanner.ConnectStart();
 
-            _weighter = new WeightScaler(
-                Global.GetScaleXerial(scaleReadCallback)
+            _weighter = new Models.WeightScaler(
+                ProgramGlobal.GetScaleXerial(scaleReadCallback)
             );
             _weighter.ConnectStart();
         }

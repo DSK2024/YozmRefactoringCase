@@ -46,7 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Global.cs" />
+    <Compile Include="ProgramGlobal.cs" />
     <Compile Include="Models\ConditionMarginError.cs" />
     <Compile Include="Models\ICondition.cs" />
     <Compile Include="Models\BarcodeInfo.cs" />
@@ -65,7 +65,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ThreadSafety.cs" />
+    <Compile Include="Helper\ThreadSafety.cs" />
     <Compile Include="UserControls\ResultHighlighter.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -103,6 +103,8 @@
   <ItemGroup>
     <Content Include="receivebox.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Devices\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

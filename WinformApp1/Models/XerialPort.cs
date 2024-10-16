@@ -41,7 +41,7 @@ namespace WinformApp1.Models
             }
             catch (IOException ex)
             {
-                Program.statusMessageShow(ex.Message);
+                ProgramGlobal.StatusMessageShow(ex.Message);
             }
         }
 

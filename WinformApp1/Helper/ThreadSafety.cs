@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace WinformApp1
+namespace WinformApp1.Helper
 {
     /// <summary>
     /// 스레드 안전 처리 클래스

@@ -66,15 +66,15 @@ namespace WinformApp1.Models
                         {
                             _port.Open();
                             if (_port.IsOpen)
-                                Program.statusMessageShow("중량계 연결OK");
+                                ProgramGlobal.StatusMessageShow("중량계 연결OK");
                         }
                         catch (IOException ex)
                         {
-                            Program.statusMessageShow("중량계 연결에 문제가 있습니다. 케이블 연결 여부 혹은 중량계 전원을 확인하세요.");
+                            ProgramGlobal.StatusMessageShow("중량계 연결에 문제가 있습니다. 케이블 연결 여부 혹은 중량계 전원을 확인하세요.");
                         }
                         catch (Exception ex)
                         {
-                            Program.statusMessageShow(ex.Message);
+                            ProgramGlobal.StatusMessageShow(ex.Message);
                         }
                     }
                     Thread.Sleep(5500);

@@ -8,7 +8,10 @@ using WinformApp1.Models;
 
 namespace WinformApp1
 {
-    internal class Global
+    /// <summary>
+    /// 프로그램 전역 클래스
+    /// </summary>
+    internal class ProgramGlobal
     {
         static SerialPort _scanner_Port = new SerialPort()
         {
@@ -39,5 +42,10 @@ namespace WinformApp1
         /// <param name="callback">중량 수신 이벤트 시 콜백함수</param>
         /// <returns>XerialPort</returns>
         public static XerialPort GetScaleXerial(Action<byte[]> callback) => new XerialPort(_scale_Port, callback);
+        
+        /// <summary>
+        /// 화면상태 메세지 출력 대리자
+        /// </summary>
+        static public Action<string> StatusMessageShow;
     }
 }
