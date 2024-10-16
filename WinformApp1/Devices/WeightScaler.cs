@@ -5,8 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using WinformApp1.Models;
 
-namespace WinformApp1.Models
+namespace WinformApp1.Devices
 {
     /// <summary>
     /// 중량계 클래스

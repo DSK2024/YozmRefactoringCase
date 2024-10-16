@@ -3,6 +3,7 @@ using Moq;
 using System;
 using System.Runtime.InteropServices;
 using WinformApp1.Models;
+using WinformApp1.Devices;
 
 namespace UnitTestWinformApp
 {

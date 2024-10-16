@@ -6,8 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using WinformApp1.Models;
 
-namespace WinformApp1.Models
+namespace WinformApp1.Devices
 {
     /// <summary>
     /// 바코드스캐너 클래스

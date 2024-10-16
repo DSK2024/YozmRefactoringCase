@@ -21,11 +21,11 @@ namespace WinformApp1
         /// <summary>
         /// 바코드스캐너 객체 멤버
         /// </summary>
-        Models.BarcodeScanner _scanner;
+        Devices.BarcodeScanner _scanner;
         /// <summary>
         /// 중량계 객체 멤버
         /// </summary>
-        Models.WeightScaler _weighter;
+        Devices.WeightScaler _weighter;
         /// <summary>
         /// 바코드 수신 콜백
         /// </summary>
@@ -79,12 +79,12 @@ namespace WinformApp1
         {
             btnInit_Click(this, null);
 
-            _scanner = new Models.BarcodeScanner(
+            _scanner = new Devices.BarcodeScanner(
                 ProgramGlobal.GetScannerXerial(barcodeReadCallback)
             );
             _scanner.ConnectStart();
 
-            _weighter = new Models.WeightScaler(
+            _weighter = new Devices.WeightScaler(
                 ProgramGlobal.GetScaleXerial(scaleReadCallback)
             );
             _weighter.ConnectStart();

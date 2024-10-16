@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
+using WinformApp1.Devices;
 using WinformApp1.Models;
 
 namespace UnitTestWinformApp
