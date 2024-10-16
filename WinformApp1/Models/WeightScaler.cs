@@ -8,11 +8,26 @@ using System.Threading.Tasks;
 
 namespace WinformApp1.Models
 {
+    /// <summary>
+    /// 중량계 클래스
+    /// </summary>
+    /// <example>
+    /// //생성 방법
+    /// var ScaleReadingCallback = new Action<byte[]>((buffer) => Console.WriteLine("Read : {0}", buffer));
+    /// var serial = new SerialPort();
+    /// var port = new XerialPort(serial, ScaleReadingCallback);
+    /// var scale = new BarcodeScanner(port);
+    /// //바코드 연결 백그라운드 실행
+    /// scale.ConnectStart();
+    /// </example>
     public class WeightScaler
     {
         IXerialPort _port;
         bool _is_start = false;
         Thread tConnChecker;
+        /// <summary>
+        /// 중량계 연결상태
+        /// </summary>
         public WeightScalerStatus Status
         {
             get
@@ -36,6 +51,9 @@ namespace WinformApp1.Models
             _port = port;
         }
 
+        /// <summary>
+        /// 중량계 연속연결 백그라운드 실행
+        /// </summary>
         public void ConnectStart()
         {
             tConnChecker = new Thread(() =>

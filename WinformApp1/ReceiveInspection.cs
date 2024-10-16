@@ -20,10 +20,25 @@ namespace WinformApp1
 {
     public partial class ReceiveInspection : Form
     {
+        /// <summary>
+        /// 컨트롤의 Text 스레드 안전한 세팅 대리자
+        /// </summary>
         Action<Control, string> TextSetThreadSafe;
+        /// <summary>
+        /// 바코드스캐너 객체 멤버
+        /// </summary>
         BarcodeScanner _scanner;
+        /// <summary>
+        /// 중량계 객체 멤버
+        /// </summary>
         WeightScaler _weighter;
+        /// <summary>
+        /// 바코드 수신 콜백
+        /// </summary>
         Action<byte[]> barcodeReadCallback;
+        /// <summary>
+        /// 중량계 수신 콜백
+        /// </summary>
         Action<byte[]> scaleReadCallback;
         const string ZERO_FLOAT_VALUE = "0.0";
         public ReceiveInspection()
@@ -123,7 +138,10 @@ namespace WinformApp1
             rhlResult.Result = ResultType.None;
         }
 
-        // 하단 상태 정보 메세지
+        /// <summary>
+        /// 하단 상태 정보 메세지 출력. 5초 후 메세지는 초기화 된다.
+        /// </summary>
+        /// <param name="message">메세지</param>
         public void StatusMessageShow(string message)
         {
             toolStrip1.BeginInvoke(new Action(async () =>

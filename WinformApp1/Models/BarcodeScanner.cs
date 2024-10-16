@@ -9,11 +9,26 @@ using System.Threading.Tasks;
 
 namespace WinformApp1.Models
 {
+    /// <summary>
+    /// 바코드스캐너 클래스
+    /// </summary>
+    /// <example>
+    /// //생성 방법
+    /// var barcodeReadingCallback = new Action<byte[]>((buffer) => Console.WriteLine("Read : {0}", buffer));
+    /// var serial = new SerialPort();
+    /// var port = new XerialPort(serial, barcodeReadingCallback);
+    /// var scanner = new BarcodeScanner(port);
+    /// //바코드 연결 백그라운드 실행
+    /// scanner.ConnectStart();
+    /// </example>
     public class BarcodeScanner
     {
         IXerialPort _port;
         bool _isStart;
         Thread _tConnCheck;
+        /// <summary>
+        /// 중량계 연결상태
+        /// </summary>
         public BarcodeScannerStatus Status
         {
             get {
@@ -31,6 +46,9 @@ namespace WinformApp1.Models
             _port = port;
         }
 
+        /// <summary>
+        /// 바코드스캐너 연속 연결 백그라운드 실행
+        /// </summary>
         public void ConnectStart()
         {
             _tConnCheck = new Thread(() =>

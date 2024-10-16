@@ -7,6 +7,15 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolTip;
 
 namespace WinformApp1.Models
 {
+    /// <summary>
+    /// 바코드 정보 클래스
+    /// </summary>
+    /// <example>
+    /// var sample = "##HY#K3A08#AB12#7.5#0001";
+    /// var data = new BarcodeInfo(sample);
+    /// Console.WriteLine("바코드 전체데이터값 : {0}", data.DataText);
+    /// Console.WriteLine("바코드 표준중량값 추출 : {0}", data.StandardWeight);
+    /// </example>
     public class BarcodeInfo
     {
         const int _COMPANY_START_STEP = 2;

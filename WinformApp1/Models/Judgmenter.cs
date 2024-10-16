@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace WinformApp1.Models
 {
+    /// <summary>
+    /// 판정 클래스
+    /// </summary>
     public class Judgmenter
     {
         JudgmentType _type;
