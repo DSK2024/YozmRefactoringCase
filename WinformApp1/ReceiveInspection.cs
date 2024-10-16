@@ -20,10 +20,6 @@ namespace WinformApp1
     public partial class ReceiveInspection : Form
     {
         /// <summary>
-        /// 컨트롤의 Text 스레드 안전한 세팅 대리자
-        /// </summary>
-        Action<Control, string> TextSetThreadSafe;
-        /// <summary>
         /// 바코드스캐너 객체 멤버
         /// </summary>
         BarcodeScanner _scanner;
@@ -45,26 +41,14 @@ namespace WinformApp1
         {
             InitializeComponent();
 
-            TextSetThreadSafe = (control, text) =>
-            {
-                if (control.InvokeRequired)
-                {
-                    control.Invoke(new Action(() => control.Text = text));
-                }
-                else
-                {
-                    control.Text = text;
-                }
-            };
-
             barcodeReadCallback = (buffer) => {
                 var barcode = new BarcodeInfo(buffer);
-                TextSetThreadSafe(txtBarcodeData, barcode.DataText);
+                ThreadSafety.TextSet(txtBarcodeData, barcode.DataText);
 
                 if (barcode.ValidBarcode)
                 {
-                    TextSetThreadSafe(txtPart, barcode.PartNo);
-                    TextSetThreadSafe(lblStandWeight, $"{barcode.StandardWeight}");
+                    ThreadSafety.TextSet(txtPart, barcode.PartNo);
+                    ThreadSafety.TextSet(lblStandWeight, $"{barcode.StandardWeight}");
                 }
                 else
                 {
@@ -75,7 +59,7 @@ namespace WinformApp1
             scaleReadCallback += (buffer) =>
             {
                 var weight = BitConverter.ToSingle(buffer, 0);
-                TextSetThreadSafe(lblMeanWeight, $"{weight}");
+                ThreadSafety.TextSet(lblMeanWeight, $"{weight}");
 
                 var standard = 0.0f;
                 if (float.TryParse(lblStandWeight.Text, out standard))
