@@ -8,7 +8,7 @@ using WinformApp1.Ports;
 
 namespace WinformApp1.Devices
 {
-    public abstract class Device
+    public abstract class Device : IConnectWorker
     {
         protected bool IsConnectWorkerRun;
         protected IXerialPort XPort;
@@ -34,16 +34,12 @@ namespace WinformApp1.Devices
             }
         }
 
-        /// <summary>
-        /// 연결모니터링 시 구체적인 행위 메소드를 반환하도록 구현된 메소드
-        /// </summary>
-        /// <returns></returns>
         public abstract Action ConnectWorkerCallback();
 
         /// <summary>
-        /// 디바이스 연결모니터링 백그라운드 실행
+        /// 디바이스 가동 및 연결 시작
         /// </summary>
-        public void ConnectWorkerStart()
+        public void StartRun()
         {
             var callback = ConnectWorkerCallback();
             ConnectWorker = new Thread(new ThreadStart(callback));

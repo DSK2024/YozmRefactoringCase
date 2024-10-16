@@ -25,9 +25,6 @@ namespace WinformApp1.Devices
     {
         public WeightScaler(IXerialPort port) : base(port) { }
 
-        /// <summary>
-        /// 중량계 연속연결 백그라운드 실행
-        /// </summary>
         public override Action ConnectWorkerCallback()
         {
             return new Action(() =>

@@ -33,7 +33,7 @@ namespace UnitTestWinformApp
         {
             var port = GetXerialPortModk();
             var scanner = new BarcodeScanner(port);
-            scanner.ConnectWorkerStart();
+            scanner.StartRun();
             Assert.AreEqual(scanner.Status, DeviceStatus.Started);
         }
 

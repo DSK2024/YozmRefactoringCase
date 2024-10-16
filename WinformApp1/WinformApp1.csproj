@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Devices\Device.cs" />
     <Compile Include="Devices\DeviceStatus.cs" />
+    <Compile Include="Devices\IConnectWorker.cs" />
     <Compile Include="ProgramGlobal.cs" />
     <Compile Include="Models\ConditionMarginError.cs" />
     <Compile Include="Models\ICondition.cs" />

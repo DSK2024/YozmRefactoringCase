@@ -82,12 +82,12 @@ namespace WinformApp1
             _scanner = new Devices.BarcodeScanner(
                 ProgramGlobal.GetScannerXerial(barcodeReadCallback)
             );
-            _scanner.ConnectWorkerStart();
+            _scanner.StartRun();
 
             _weighter = new Devices.WeightScaler(
                 ProgramGlobal.GetScaleXerial(scaleReadCallback)
             );
-            _weighter.ConnectWorkerStart();
+            _weighter.StartRun();
         }
 
         // 입고검사 완료

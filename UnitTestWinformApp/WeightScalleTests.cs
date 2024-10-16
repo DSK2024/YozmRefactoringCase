@@ -32,7 +32,7 @@ namespace UnitTestWinformApp
         {
             var port = GetXerialPortModk();
             var scale = new WeightScaler(port);
-            scale.ConnectWorkerStart();
+            scale.StartRun();
             Assert.AreEqual(scale.Status, DeviceStatus.Started);
         }
 
