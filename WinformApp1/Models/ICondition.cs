@@ -12,9 +12,9 @@ namespace WinformApp1.Models
     public interface ICondition
     {
         /// <summary>
-        /// 최종 판정
+        /// 조건 실행
         /// </summary>
         /// <returns></returns>
-        bool Judgment();
+        bool ConditionExecution();
     }
 }

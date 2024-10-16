@@ -76,12 +76,13 @@ namespace WinformApp1
             {
                 var weight = BitConverter.ToSingle(buffer, 0);
                 TextSetThreadSafe(lblMeanWeight, $"{weight}");
-                var judgment = new Judgmenter();
+
                 var standard = 0.0f;
                 if (float.TryParse(lblStandWeight.Text, out standard))
                 {
                     var condition = new ConditionMarginError(standard, 0.5f, weight);
-                    rhlResult.Result = judgment.Judgment(condition) ? ResultType.OK : ResultType.NG;
+                    var tester = new Judge(condition);
+                    rhlResult.Result = tester.Judgment() ? ResultType.OK : ResultType.NG;
                 }
                 else
                 {

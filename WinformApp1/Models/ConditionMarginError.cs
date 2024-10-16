@@ -27,7 +27,7 @@ namespace WinformApp1.Models
             _testValue = testValue;
         }
 
-        public bool Judgment()
+        public bool ConditionExecution()
         {
             return _compareVal + _allowError > _testValue && _compareVal - _allowError < _testValue;
         }

@@ -41,8 +41,8 @@ namespace UnitTestWinformApp
             var err = 0.5f;
             var val = 7.75f;
             var condition = new ConditionMarginError(compare, err, val);
-            var judg = new Judgmenter();
-            var result = judg.Judgment(condition);
+            var judge = new Judge(condition);
+            var result = judge.Judgment();
 
             Assert.AreEqual(result, true);
         }
@@ -54,8 +54,8 @@ namespace UnitTestWinformApp
             var err = 0.5f;
             var val = 8.9f;
             var condition = new ConditionMarginError(compare, err, val);
-            var judg = new Judgmenter();
-            var result = judg.Judgment(condition);
+            var judge = new Judge(condition);
+            var result = judge.Judgment();
 
             Assert.AreEqual(result, false);
         }
