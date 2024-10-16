@@ -79,12 +79,14 @@ namespace WinformApp1
         {
             btnInit_Click(this, null);
 
-            var scannerPort = Global.ScannerXPort(barcodeReadCallback);
-            _scanner = new BarcodeScanner(scannerPort);
+            _scanner = new BarcodeScanner(
+                Global.GetScannerXerial(barcodeReadCallback)
+            );
             _scanner.ConnectStart();
 
-            var scalePort = Global.ScaleXPort(scaleReadCallback);
-            _weighter = new WeightScaler(scalePort);
+            _weighter = new WeightScaler(
+                Global.GetScaleXerial(scaleReadCallback)
+            );
             _weighter.ConnectStart();
         }
 
