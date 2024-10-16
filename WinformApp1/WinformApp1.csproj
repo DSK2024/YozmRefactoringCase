@@ -47,12 +47,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Global.cs" />
+    <Compile Include="Models\ConditionMarginError.cs" />
+    <Compile Include="Models\ICondition.cs" />
     <Compile Include="Models\BarcodeInfo.cs" />
     <Compile Include="Models\BarcodeScanner.cs" />
     <Compile Include="Models\BarcodeScannerStatus.cs" />
     <Compile Include="Models\IXerialPort.cs" />
     <Compile Include="Models\Judgmenter.cs" />
-    <Compile Include="Models\JudgmentType.cs" />
     <Compile Include="Models\WeightScaler.cs" />
     <Compile Include="Models\WeightScalerStatus.cs" />
     <Compile Include="Models\XerialPort.cs" />

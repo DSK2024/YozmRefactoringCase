@@ -38,24 +38,26 @@ namespace UnitTestWinformApp
         public void 판정결과_OK()
         {
             var compare = 7.5f;
+            var err = 0.5f;
             var val = 7.75f;
-            var testType = JudgmentType.MarginOfError;
-            var judg = new Judgmenter(testType);
-            var condition = judg.Condition(compare, val);
+            var condition = new ConditionMarginError(compare, err, val);
+            var judg = new Judgmenter();
+            var result = judg.Judgment(condition);
 
-            Assert.AreEqual(condition, true);
+            Assert.AreEqual(result, true);
         }
 
         [TestMethod]
         public void 판정결과_NG()
         {
             var compare = 7.5f;
+            var err = 0.5f;
             var val = 8.9f;
-            var testType = JudgmentType.MarginOfError;
-            var judg = new Judgmenter(testType);
-            var condition = judg.Condition(compare, val);
+            var condition = new ConditionMarginError(compare, err, val);
+            var judg = new Judgmenter();
+            var result = judg.Judgment(condition);
 
-            Assert.AreEqual(condition, false);
+            Assert.AreEqual(result, false);
         }
     }
 }

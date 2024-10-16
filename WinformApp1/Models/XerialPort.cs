@@ -9,6 +9,9 @@ using System.Windows.Forms;
 
 namespace WinformApp1.Models
 {
+    /// <summary>
+    /// 시리얼포트 클래스
+    /// </summary>
     public class XerialPort : IXerialPort
     {
         SerialPort _serialPort;
