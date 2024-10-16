@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using WinformApp1.Models;
+using WinformApp1.Ports;
 
 namespace WinformApp1.Devices
 {
@@ -23,15 +23,14 @@ namespace WinformApp1.Devices
     /// </example>
     public class WeightScaler : Device
     {
-        Thread tConnChecker;
         public WeightScaler(IXerialPort port) : base(port) { }
 
         /// <summary>
         /// 중량계 연속연결 백그라운드 실행
         /// </summary>
-        public override void ConnectStart()
+        public override Action ConnectWorkerCallback()
         {
-            tConnChecker = new Thread(() =>
+            return new Action(() =>
             {
                 while (true)
                 {
@@ -55,10 +54,6 @@ namespace WinformApp1.Devices
                     Thread.Sleep(5500);
                 }
             });
-
-            tConnChecker.IsBackground = true;
-            tConnChecker.Start();
-            IsStart = true;
         }
     }
 }

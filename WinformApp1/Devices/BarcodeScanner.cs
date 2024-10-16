@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using WinformApp1.Models;
+using WinformApp1.Ports;
 
 namespace WinformApp1.Devices
 {
@@ -24,15 +24,11 @@ namespace WinformApp1.Devices
     /// </example>
     public class BarcodeScanner : Device
     {
-        Thread _tConnCheck;
         public BarcodeScanner(IXerialPort port) : base(port) { }
 
-        /// <summary>
-        /// 바코드스캐너 연속 연결 백그라운드 실행
-        /// </summary>
-        public override void ConnectStart()
+        public override Action ConnectWorkerCallback()
         {
-            _tConnCheck = new Thread(() =>
+            return new Action(() =>
             {
                 while (true)
                 {
@@ -56,9 +52,6 @@ namespace WinformApp1.Devices
                     Thread.Sleep(4500);
                 }
             });
-            _tConnCheck.IsBackground = true;
-            _tConnCheck.Start();
-            IsStart = true;
         }
     }
 }

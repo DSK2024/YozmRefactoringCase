@@ -53,10 +53,10 @@
     <Compile Include="Models\ICondition.cs" />
     <Compile Include="Models\BarcodeInfo.cs" />
     <Compile Include="Devices\BarcodeScanner.cs" />
-    <Compile Include="Models\IXerialPort.cs" />
+    <Compile Include="Ports\IXerialPort.cs" />
     <Compile Include="Models\Judge.cs" />
     <Compile Include="Devices\WeightScaler.cs" />
-    <Compile Include="Models\XerialPort.cs" />
+    <Compile Include="Ports\XerialPort.cs" />
     <Compile Include="ReceiveInspection.cs">
       <SubType>Form</SubType>
     </Compile>

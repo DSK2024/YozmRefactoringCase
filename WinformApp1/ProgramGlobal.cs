@@ -26,7 +26,7 @@ namespace WinformApp1
         /// </summary>
         /// <param name="callback">스캔 수신 이벤트 시 콜백함수</param>
         /// <returns>XerialPort</returns>
-        public static XerialPort GetScannerXerial(Action<byte[]> callback) => new XerialPort(_scanner_Port, callback);
+        public static Ports.XerialPort GetScannerXerial(Action<byte[]> callback) => new Ports.XerialPort(_scanner_Port, callback);
 
         static SerialPort _scale_Port = new SerialPort()
         {
@@ -41,7 +41,7 @@ namespace WinformApp1
         /// </summary>
         /// <param name="callback">중량 수신 이벤트 시 콜백함수</param>
         /// <returns>XerialPort</returns>
-        public static XerialPort GetScaleXerial(Action<byte[]> callback) => new XerialPort(_scale_Port, callback);
+        public static Ports.XerialPort GetScaleXerial(Action<byte[]> callback) => new Ports.XerialPort(_scale_Port, callback);
         
         /// <summary>
         /// 화면상태 메세지 출력 대리자

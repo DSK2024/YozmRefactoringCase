@@ -4,6 +4,7 @@ using System;
 using System.Runtime.InteropServices;
 using WinformApp1.Models;
 using WinformApp1.Devices;
+using WinformApp1.Ports;
 
 namespace UnitTestWinformApp
 {
@@ -31,7 +32,7 @@ namespace UnitTestWinformApp
         {
             var port = GetXerialPortModk();
             var scale = new WeightScaler(port);
-            scale.ConnectStart();
+            scale.ConnectWorkerStart();
             Assert.AreEqual(scale.Status, DeviceStatus.Started);
         }
 

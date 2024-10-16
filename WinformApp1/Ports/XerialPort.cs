@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace WinformApp1.Models
+namespace WinformApp1.Ports
 {
     /// <summary>
     /// 시리얼포트 클래스

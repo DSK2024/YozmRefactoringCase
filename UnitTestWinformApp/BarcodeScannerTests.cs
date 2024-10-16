@@ -3,6 +3,7 @@ using Moq;
 using System;
 using WinformApp1.Devices;
 using WinformApp1.Models;
+using WinformApp1.Ports;
 
 namespace UnitTestWinformApp
 {
@@ -32,7 +33,7 @@ namespace UnitTestWinformApp
         {
             var port = GetXerialPortModk();
             var scanner = new BarcodeScanner(port);
-            scanner.ConnectStart();
+            scanner.ConnectWorkerStart();
             Assert.AreEqual(scanner.Status, DeviceStatus.Started);
         }
 
