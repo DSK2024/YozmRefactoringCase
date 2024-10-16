@@ -19,7 +19,7 @@ namespace WinformApp1.Devices
     /// var port = new XerialPort(serial, ScaleReadingCallback);
     /// var scale = new BarcodeScanner(port);
     /// //바코드 연결 백그라운드 실행
-    /// scale.ConnectStart();
+    /// scale.ConnectWorkerStart();
     /// </example>
     public class WeightScaler : Device
     {

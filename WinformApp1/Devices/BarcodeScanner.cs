@@ -20,7 +20,7 @@ namespace WinformApp1.Devices
     /// var port = new XerialPort(serial, barcodeReadingCallback);
     /// var scanner = new BarcodeScanner(port);
     /// //바코드 연결 백그라운드 실행
-    /// scanner.ConnectStart();
+    /// scanner.ConnectWorkerStart();
     /// </example>
     public class BarcodeScanner : Device
     {
