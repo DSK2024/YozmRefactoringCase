@@ -12,6 +12,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WinformApp1.Models;
+using WinformApp1.Services;
 using WinformApp1.UserControls;
 
 namespace WinformApp1
@@ -93,26 +95,13 @@ namespace WinformApp1
         // 입고검사 완료
         private void btnInspect_Click(object sender, EventArgs e)
         {
-            try
-            {
-                var client = new HttpClient();
-                client.BaseAddress = new Uri("https://69af0b64-3377-43c3-a562-60729cebad2a.mock.pstmn.io");
-                var content = new FormUrlEncodedContent(new[]
-                {
-                    new KeyValuePair<string, string>("barcode", txtBarcodeData.Text),
-                    new KeyValuePair<string, string>("model", txtPart.Text),
-                    new KeyValuePair<string, string>("weight", lblMeanWeight.Text),
-                    new KeyValuePair<string, string>("ok_ng", rhlResult.Result == ResultType.OK ? ResultTypeText.OK : ResultTypeText.NG)
-                });
-                var result = client.PostAsync("/api/receive/inspect", content);
-                StatusMessageShow("결과가 전송되었습니다");
-                btnInit_Click(this, null);
-            }
-            catch (Exception ex)
-            {
-                //통신 실패시 처리로직
-                StatusMessageShow(ex.Message);
-            }
+            var check = rhlResult.Result == ResultType.OK ? ResultTypeText.OK : ResultTypeText.NG;
+            var result = new InspectResult(txtPart.Text, lblMeanWeight.Text, check, txtBarcodeData.Text);
+            var service = ProgramGlobal.GetHttpSender;
+            if(service.Send("/api/receive/inspect", result))
+                StatusMessageShow("전송이 완료되었습니다");
+            else
+                StatusMessageShow("전송되지 않았습니다. 연결을 확인하세요");
         }
 
         // 초기화

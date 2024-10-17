@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BarcodeScannerTests.cs" />
+    <Compile Include="HttpSenderTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WeightScalleTests.cs" />
   </ItemGroup>

@@ -49,6 +49,7 @@
     <Compile Include="Devices\Device.cs" />
     <Compile Include="Devices\DeviceStatus.cs" />
     <Compile Include="Devices\IConnectWorker.cs" />
+    <Compile Include="Models\InspectResult.cs" />
     <Compile Include="ProgramGlobal.cs" />
     <Compile Include="Models\ConditionMarginError.cs" />
     <Compile Include="Models\ICondition.cs" />
@@ -67,6 +68,8 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Helper\ThreadSafety.cs" />
+    <Compile Include="Services\IHttpSender.cs" />
+    <Compile Include="Services\InspectSender.cs" />
     <Compile Include="UserControls\ResultHighlighter.cs">
       <SubType>UserControl</SubType>
     </Compile>

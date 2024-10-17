@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WinformApp1.Models;
+using WinformApp1.Services;
 
 namespace WinformApp1
 {
@@ -47,5 +48,14 @@ namespace WinformApp1
         /// 화면상태 메세지 출력 대리자
         /// </summary>
         static public Action<string> StatusMessageShow;
+
+        static public InspectSender GetHttpSender
+        {
+            get
+            {
+                var sender = new InspectSender("https://69af0b64-3377-43c3-a562-60729cebad2a.mock.pstmn.io");
+                return sender;
+            }
+        }
     }
 }
